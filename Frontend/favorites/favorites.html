@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Disney+ My Favorites</title>
+    <link href="https://fonts.googleapis.com/css2?family=Spline+Sans:wght@300;400;500;600;700&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <link href="favorites.css" rel="stylesheet" />
+</head>
+
+<body>
+    <div class="app-wrapper">
+        <div class="layout-container">
+            <header class="site-header">
+                <div class="header-left">
+                    <div class="logo-container">
+                        <div class="logo-icon">
+                            <img src="../Imagenes/logo.png" alt="Logo" class="w-full h-full object-contain">
+                        </div>
+                        <h2 class="logo-text">STREAM</h2>
+                    </div>
+                    <nav class="main-nav">
+                        <a class="nav-link" href="../index.html">Home</a>
+                        <a class="nav-link" href="#">Movies</a>
+                        <a class="nav-link active" href="favorites.html">MyFavorites</a>
+                    </nav>
+                </div>
+                <div class="header-right">
+                    <div class="header-actions">
+                        <button class="icon-btn">
+                            <span class="material-symbols-outlined">search</span>
+                        </button>
+                        <button class="icon-btn">
+                            <span class="material-symbols-outlined">notifications</span>
+                            <span class="notification-dot"></span>
+                        </button>
+                    </div>
+                    <div class="user-avatar" data-alt="User profile avatar icon"
+                        style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAtLt1jRJ35QaGl7q_r1X8fjgnAX6XLftPMAIicVjrlKkdQ89fnww3BAZq40c-rgq9KihC5gbOqyb1r8MC2zm3397sNQNzfHPjmJKHY7BD-8DqUQT0le7E7UI5mXrgOzcGy3EYhggFYrDh3Osd9WFe68KYpAQewp7pymG4KrHT43dxeT1lSLgJy78AaMbsXF7gYCds99Nc-VZnq77hQQw_zsq0r-ECF9c1GY9TTaF_9FUEkNCtayoGZTJWnDBOWL_cZP0AcUbQGhPny");'>
+                    </div>
+                </div>
+            </header>
+            <main class="main-wrapper">
+                <div class="layout-content-container">
+                    <div class="content-header">
+                        <div class="page-title-group">
+                            <h1 class="page-title">My Favorites</h1>
+                            <p class="page-subtitle">Your curated collection of Disney magic</p>
+                        </div>
+                        <div class="controls-group">
+                            <label class="search-bar">
+                                <div class="search-icon-wrapper">
+                                    <span class="material-symbols-outlined text-sm-icon">search</span>
+                                </div>
+                                <input class="search-input" placeholder="Search within favorites" value="" />
+                            </label>
+                            <button class="filter-btn">
+                                <span class="material-symbols-outlined text-xs-icon">filter_list</span>
+                                Filter
+                            </button>
+                        </div>
+                    </div>
+                    <div class="category-filters">
+                        <button class="cat-pill active">
+                            <p>All Items</p>
+                        </button>
+                        <button class="cat-pill inactive">
+                            <p>Movies</p>
+                        </button>
+                        <button class="cat-pill inactive">
+                            <p>Series</p>
+                        </button>
+                        <button class="cat-pill inactive">
+                            <p>Disney+ Originals</p>
+                        </button>
+                    </div>
+                    <div class="poster-grid">
+                        <!-- Favorites will be loaded here via JS -->
+                    </div>
+                    <div class="view-more-container">
+                        <button class="view-more-btn">
+                            <span class="material-symbols-outlined text-sm-icon">refresh</span>
+                            View More
+                        </button>
+                    </div>
+                </div>
+            </main>
+            <footer class="site-footer">
+                <div class="footer-content">
+                    <div class="footer-links">
+                        <a href="#">Privacy Policy</a>
+                        <a href="#">Subscriber Agreement</a>
+                        <a href="#">Help</a>
+                        <a href="#">Supported Devices</a>
+                    </div>
+                    <div class="footer-logo">
+                        <img src="../Imagenes/logo.png" alt="Logo"
+                            class="w-full h-full object-contain grayscale opacity-50"
+                            style="width: 24px; height: 24px; display: block; margin: 0 auto;">
+                    </div>
+                    <p class="copyright">
+                        © 2024 Disney and its related entities. All rights reserved. HBO, Marvel, Star Wars, Pixar and
+                        National Geographic are trademarks of their respective owners.
+                    </p>
+                </div>
+            </footer>
+        </div>
+    </div>
+
+    <script src="favorites.js"></script>
+</body>
+
+</html>

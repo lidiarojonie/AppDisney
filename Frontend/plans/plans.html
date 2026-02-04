@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html class="dark" lang="es">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Disney+ Subscription Plans</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Spline+Sans:wght@300;400;500;600;700;900&amp;display=swap"
+        rel="stylesheet" />
+    <link href="plans.css" rel="stylesheet" />
+</head>
+
+<body>
+    <div class="disney-gradient">
+        <!-- TopNavBar -->
+        <header class="site-header">
+            <div class="site-logo">
+                <div class="logo-icon">
+                    <img src="../Imagenes/logo.png" alt="Logo" class="w-full h-full object-contain">
+                </div>
+                <h2 class="logo-text">STREAM</h2>
+            </div>
+            <div class="header-actions">
+                <nav class="main-nav">
+                    <a href="../index.html" class="nav-link active">Home</a>
+                    <a href="#" class="nav-link">Movies</a>
+                    <a href="../favorites/favorites.html" class="nav-link">MyFavorites</a>
+                </nav>
+                <button class="btn btn-primary" style="width: auto; min-width: 100px;">
+                    <span>Sign In</span>
+                </button>
+            </div>
+        </header>
+
+        <main class="layout-container">
+            <div class="content-wrapper">
+                <!-- PageHeading -->
+                <div class="page-header">
+                    <h1 class="page-title">Choose Your Plan</h1>
+                    <p class="page-subtitle">Stream your favorites with
+                        the plan that fits you best. Cancel anytime, no strings attached.</p>
+                </div>
+
+                <!-- SegmentedButtons (Billing Toggle) -->
+                <div class="billing-toggle-container">
+                    <div class="billing-toggle">
+                        <label class="toggle-option">
+                            <span class="truncate">Monthly</span>
+                            <input checked="" class="hidden" name="billing_cycle" type="radio" value="monthly" />
+                        </label>
+                        <label class="toggle-option">
+                            <span class="truncate">Annual</span>
+                            <span class="save-badge">Save 15%</span>
+                            <input class="hidden" name="billing_cycle" type="radio" value="annual" />
+                        </label>
+                    </div>
+                </div>
+
+                <!-- PricingCards -->
+                <div class="pricing-grid">
+                    <!-- Basic Card -->
+                    <div class="pricing-card">
+                        <div class="card-header">
+                            <h3 class="plan-name">Disney+ Basic</h3>
+                            <div class="plan-price-wrapper">
+                                <span class="plan-price">$7.99</span>
+                                <span class="plan-period">/mo</span>
+                            </div>
+                            <p class="plan-desc italic">With occasional ads</p>
+                        </div>
+                        <button class="btn btn-dark">
+                            Get Basic
+                        </button>
+                        <hr class="divider" />
+                        <div class="features-list">
+                            <div class="feature-item">
+                                <span class="material-symbols-outlined feature-icon">check_circle</span>
+                                1080p Full HD Video
+                            </div>
+                            <div class="feature-item">
+                                <span class="material-symbols-outlined feature-icon">check_circle</span>
+                                2 concurrent screens
+                            </div>
+                            <div class="feature-item muted">
+                                <span class="material-symbols-outlined feature-icon">block</span>
+                                Downloads for offline
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Standard Card -->
+                    <div class="pricing-card">
+                        <div class="card-header">
+                            <h3 class="plan-name">Disney+ Standard</h3>
+                            <div class="plan-price-wrapper">
+                                <span class="plan-price">$13.99</span>
+                                <span class="plan-period">/mo</span>
+                            </div>
+                            <p class="plan-desc">Ad-free streaming experience</p>
+                        </div>
+                        <button class="btn btn-dark">
+                            Get Standard
+                        </button>
+                        <hr class="divider" />
+                        <div class="features-list">
+                            <div class="feature-item">
+                                <span class="material-symbols-outlined feature-icon">check_circle</span>
+                                1080p Full HD Video
+                            </div>
+                            <div class="feature-item">
+                                <span class="material-symbols-outlined feature-icon">check_circle</span>
+                                2 concurrent screens
+                            </div>
+                            <div class="feature-item">
+                                <span class="material-symbols-outlined feature-icon">check_circle</span>
+                                Downloads for offline
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Premium Card (Highlighted) -->
+                    <div class="pricing-card premium">
+                        <span class="popular-badge">Most Popular</span>
+                        <div class="card-header">
+                            <h3 class="plan-name">Disney+ Premium</h3>
+                            <div class="plan-price-wrapper">
+                                <span class="plan-price">$18.99</span>
+                                <span class="plan-period">/mo</span>
+                            </div>
+                            <p class="plan-desc">The ultimate cinematic experience</p>
+                        </div>
+                        <button class="btn btn-primary">
+                            Get Premium
+                        </button>
+                        <hr class="divider primary" />
+                        <div class="features-list">
+                            <div class="feature-item">
+                                <span class="material-symbols-outlined feature-icon fill-1">auto_awesome</span>
+                                4K UHD &amp; HDR Video
+                            </div>
+                            <div class="feature-item">
+                                <span class="material-symbols-outlined feature-icon">check_circle</span>
+                                4 concurrent screens
+                            </div>
+                            <div class="feature-item">
+                                <span class="material-symbols-outlined feature-icon">check_circle</span>
+                                Dolby Atmos Audio
+                            </div>
+                            <div class="feature-item">
+                                <span class="material-symbols-outlined feature-icon">check_circle</span>
+                                Downloads for offline
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Compare Section -->
+                <div class="compare-section">
+                    <h2 class="compare-title">Need more details?</h2>
+                    <p class="compare-text">Compare every feature across our membership tiers.</p>
+                    <button class="compare-btn">
+                        Compare Plan Features
+                        <span class="material-symbols-outlined">expand_more</span>
+                    </button>
+                </div>
+
+                <!-- Footer area -->
+                <div class="site-footer">
+                    <p>Pricing and taxes may vary depending on your location. Standard billing applies after any
+                        promotional periods.</p>
+                    <div class="footer-links">
+                        <a href="#">Terms of Service</a>
+                        <a href="#">Privacy Policy</a>
+                        <a href="#">Help Center</a>
+                    </div>
+                    <p>© 2024 Disney and its related entities. All rights reserved.</p>
+                </div>
+            </div>
+        </main>
+        <!-- Background decorative elements -->
+        <div class="bg-decorations">
+            <div class="bg-blob-1"></div>
+            <div class="bg-blob-2"></div>
+        </div>
+    </div>
+</body>
+
+</html>
