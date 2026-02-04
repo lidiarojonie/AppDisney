@@ -81,12 +81,14 @@
                     <div class="billing-toggle">
                         <label class="toggle-option">
                             <span class="truncate">Monthly</span>
-                            <input checked="" class="hidden" name="billing_cycle" type="radio" value="monthly" />
+                            <input checked="" class="hidden" name="billing_cycle" type="radio" value="monthly"
+                                id="billing-monthly" />
                         </label>
                         <label class="toggle-option">
                             <span class="truncate">Annual</span>
                             <span class="save-badge">Save 15%</span>
-                            <input class="hidden" name="billing_cycle" type="radio" value="annual" />
+                            <input class="hidden" name="billing_cycle" type="radio" value="annual"
+                                id="billing-annual" />
                         </label>
                     </div>
                 </div>
@@ -98,7 +100,7 @@
                         <div class="card-header">
                             <h3 class="plan-name">Disney+ Basic</h3>
                             <div class="plan-price-wrapper">
-                                <span class="plan-price">$7.99</span>
+                                <span class="plan-price" data-monthly-price="7.99">$7.99</span>
                                 <span class="plan-period">/mo</span>
                             </div>
                             <p class="plan-desc italic">With occasional ads</p>
@@ -128,7 +130,7 @@
                         <div class="card-header">
                             <h3 class="plan-name">Disney+ Standard</h3>
                             <div class="plan-price-wrapper">
-                                <span class="plan-price">$13.99</span>
+                                <span class="plan-price" data-monthly-price="13.99">$13.99</span>
                                 <span class="plan-period">/mo</span>
                             </div>
                             <p class="plan-desc">Ad-free streaming experience</p>
@@ -159,7 +161,7 @@
                         <div class="card-header">
                             <h3 class="plan-name">Disney+ Premium</h3>
                             <div class="plan-price-wrapper">
-                                <span class="plan-price">$18.99</span>
+                                <span class="plan-price" data-monthly-price="18.99">$18.99</span>
                                 <span class="plan-period">/mo</span>
                             </div>
                             <p class="plan-desc">The ultimate cinematic experience</p>
@@ -199,23 +201,24 @@
                     </button>
                 </div>
 
-                <!-- Footer area -->
-                <footer class="site-footer">
-                    <div class="footer-content">
-                        <div class="logo-icon text-slate-400">
-                            <img src="../Imagenes/logo.png" alt="Logo"
-                                class="w-full h-full object-contain grayscale opacity-50">
-                        </div>
-                        <div class="footer-links">
-                            <a href="#">Privacy Policy</a>
-                            <a href="#">Help</a>
-                            <a href="#">About Us</a>
-                        </div>
-                        <p class="copyright">© 2026 Streaming Service. All rights reserved.</p>
-                    </div>
-                </footer>
             </div>
         </main>
+
+        <!-- Footer area -->
+        <footer class="site-footer">
+            <div class="footer-content">
+                <div class="logo-icon text-slate-400">
+                    <img src="../Imagenes/logo.png" alt="Logo"
+                        class="w-full h-full object-contain grayscale opacity-50">
+                </div>
+                <div class="footer-links">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Help</a>
+                    <a href="#">About Us</a>
+                </div>
+                <p class="copyright">© 2026 Streaming Service. All rights reserved.</p>
+            </div>
+        </footer>
         <!-- Background decorative elements -->
         <div class="bg-decorations">
             <div class="bg-blob-1"></div>
