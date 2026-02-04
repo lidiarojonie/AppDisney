@@ -10,6 +10,7 @@
         rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Spline+Sans:wght@300;400;500;600;700;900&amp;display=swap"
         rel="stylesheet" />
+    <link rel="stylesheet" href="../styles.css" />
     <link href="plans.css" rel="stylesheet" />
 </head>
 
@@ -17,21 +18,31 @@
     <div class="disney-gradient">
         <!-- TopNavBar -->
         <header class="site-header">
-            <div class="site-logo">
-                <div class="logo-icon">
-                    <img src="../Imagenes/logo.png" alt="Logo" class="w-full h-full object-contain">
-                </div>
-                <h2 class="logo-text">STREAM</h2>
-            </div>
-            <div class="header-actions">
+            <div class="header-left">
+                <a href="../index.html" class="logo-link">
+                    <div class="logo-icon">
+                        <img src="../Imagenes/logo.png" alt="Logo" class="w-full h-full object-contain">
+                    </div>
+                    <h2 class="logo-text">STREAM</h2>
+                </a>
                 <nav class="main-nav">
-                    <a href="../index.html" class="nav-link active">Home</a>
-                    <a href="#" class="nav-link">Movies</a>
+                    <a href="../index.html" class="nav-link">Home</a>
+                    <a href="../allMovies/allMovies.html" class="nav-link">Movies</a>
                     <a href="../favorites/favorites.html" class="nav-link">MyFavorites</a>
                 </nav>
-                <button class="btn btn-primary" style="width: auto; min-width: 100px;">
-                    <span>Sign In</span>
-                </button>
+            </div>
+            <div class="header-right">
+                <div class="search-container">
+                    <span class="material-symbols-outlined search-icon">search</span>
+                    <input class="search-input" placeholder="Search..." type="text" />
+                </div>
+                <div class="notification-icon">
+                    <span class="material-symbols-outlined">notifications</span>
+                    <div class="notification-dot"></div>
+                </div>
+                <div class="user-avatar"
+                    style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBcHDc-ey8kjvRGkxEDP3YvCJF539f_5sbUYgDYZsCjD-jaVeC37DBP3LjjfMBqzyzcVUltjOb1TSiCUvKrAg96V1_E4ETp3kqnTXgGmEnl2Pdh22QEqTWMom6vu6p686Z7OwlhynDD2oj5TIRpY84Xwe7zzQ9uQA-WSeQT3Gzp6dwjCbDuG9miTrh4zXWHMWsovQY8oFKDRVSU0RHbkiH23DtZM8eTLhMKyAMumQ5b84RvaPz_F6-tBVojX-P6lSaZC7r-m8wlMO54");'>
+                </div>
             </div>
         </header>
 
@@ -168,16 +179,20 @@
                 </div>
 
                 <!-- Footer area -->
-                <div class="site-footer">
-                    <p>Pricing and taxes may vary depending on your location. Standard billing applies after any
-                        promotional periods.</p>
-                    <div class="footer-links">
-                        <a href="#">Terms of Service</a>
-                        <a href="#">Privacy Policy</a>
-                        <a href="#">Help Center</a>
+                <footer class="site-footer">
+                    <div class="footer-content">
+                        <div class="logo-icon text-slate-400">
+                            <img src="../Imagenes/logo.png" alt="Logo"
+                                class="w-full h-full object-contain grayscale opacity-50">
+                        </div>
+                        <div class="footer-links">
+                            <a href="#">Privacy Policy</a>
+                            <a href="#">Help</a>
+                            <a href="#">About Us</a>
+                        </div>
+                        <p class="copyright">© 2026 Streaming Service. All rights reserved.</p>
                     </div>
-                    <p>© 2024 Disney and its related entities. All rights reserved.</p>
-                </div>
+                </footer>
             </div>
         </main>
         <!-- Background decorative elements -->

@@ -10,6 +10,7 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
         rel="stylesheet" />
+    <link rel="stylesheet" href="../styles.css" />
     <link href="favorites.css" rel="stylesheet" />
 </head>
 
@@ -18,30 +19,29 @@
         <div class="layout-container">
             <header class="site-header">
                 <div class="header-left">
-                    <div class="logo-container">
+                    <a href="../index.html" class="logo-link">
                         <div class="logo-icon">
                             <img src="../Imagenes/logo.png" alt="Logo" class="w-full h-full object-contain">
                         </div>
                         <h2 class="logo-text">STREAM</h2>
-                    </div>
+                    </a>
                     <nav class="main-nav">
                         <a class="nav-link" href="../index.html">Home</a>
-                        <a class="nav-link" href="#">Movies</a>
+                        <a class="nav-link" href="../allMovies/allMovies.html">Movies</a>
                         <a class="nav-link active" href="favorites.html">MyFavorites</a>
                     </nav>
                 </div>
                 <div class="header-right">
-                    <div class="header-actions">
-                        <button class="icon-btn">
-                            <span class="material-symbols-outlined">search</span>
-                        </button>
-                        <button class="icon-btn">
-                            <span class="material-symbols-outlined">notifications</span>
-                            <span class="notification-dot"></span>
-                        </button>
+                    <div class="search-container">
+                        <span class="material-symbols-outlined search-icon">search</span>
+                        <input class="search-input" placeholder="Search..." type="text" />
                     </div>
-                    <div class="user-avatar" data-alt="User profile avatar icon"
-                        style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAtLt1jRJ35QaGl7q_r1X8fjgnAX6XLftPMAIicVjrlKkdQ89fnww3BAZq40c-rgq9KihC5gbOqyb1r8MC2zm3397sNQNzfHPjmJKHY7BD-8DqUQT0le7E7UI5mXrgOzcGy3EYhggFYrDh3Osd9WFe68KYpAQewp7pymG4KrHT43dxeT1lSLgJy78AaMbsXF7gYCds99Nc-VZnq77hQQw_zsq0r-ECF9c1GY9TTaF_9FUEkNCtayoGZTJWnDBOWL_cZP0AcUbQGhPny");'>
+                    <div class="notification-icon">
+                        <span class="material-symbols-outlined">notifications</span>
+                        <div class="notification-dot"></div>
+                    </div>
+                    <div class="user-avatar"
+                        style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBcHDc-ey8kjvRGkxEDP3YvCJF539f_5sbUYgDYZsCjD-jaVeC37DBP3LjjfMBqzyzcVUltjOb1TSiCUvKrAg96V1_E4ETp3kqnTXgGmEnl2Pdh22QEqTWMom6vu6p686Z7OwlhynDD2oj5TIRpY84Xwe7zzQ9uQA-WSeQT3Gzp6dwjCbDuG9miTrh4zXWHMWsovQY8oFKDRVSU0RHbkiH23DtZM8eTLhMKyAMumQ5b84RvaPz_F6-tBVojX-P6lSaZC7r-m8wlMO54");'>
                     </div>
                 </div>
             </header>
@@ -53,11 +53,11 @@
                             <p class="page-subtitle">Your curated collection of Disney magic</p>
                         </div>
                         <div class="controls-group">
-                            <label class="search-bar">
+                            <label class="favorites-search-bar">
                                 <div class="search-icon-wrapper">
                                     <span class="material-symbols-outlined text-sm-icon">search</span>
                                 </div>
-                                <input class="search-input" placeholder="Search within favorites" value="" />
+                                <input class="favorites-search-input" placeholder="Search within favorites" value="" />
                             </label>
                             <button class="filter-btn">
                                 <span class="material-symbols-outlined text-xs-icon">filter_list</span>
@@ -89,21 +89,16 @@
             </main>
             <footer class="site-footer">
                 <div class="footer-content">
+                    <div class="logo-icon text-slate-400">
+                        <img src="../Imagenes/logo.png" alt="Logo"
+                            class="w-full h-full object-contain grayscale opacity-50">
+                    </div>
                     <div class="footer-links">
                         <a href="#">Privacy Policy</a>
-                        <a href="#">Subscriber Agreement</a>
                         <a href="#">Help</a>
-                        <a href="#">Supported Devices</a>
+                        <a href="#">About Us</a>
                     </div>
-                    <div class="footer-logo">
-                        <img src="../Imagenes/logo.png" alt="Logo"
-                            class="w-full h-full object-contain grayscale opacity-50"
-                            style="width: 24px; height: 24px; display: block; margin: 0 auto;">
-                    </div>
-                    <p class="copyright">
-                        © 2024 Disney and its related entities. All rights reserved. HBO, Marvel, Star Wars, Pixar and
-                        National Geographic are trademarks of their respective owners.
-                    </p>
+                    <p class="copyright">© 2026 Streaming Service. All rights reserved.</p>
                 </div>
             </footer>
         </div>

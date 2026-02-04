@@ -4,28 +4,29 @@
 <head>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <title>Streaming Home - Dark Red</title>
+    <title>All Movies - STREAM</title>
     <link href="https://fonts.googleapis.com/css2?family=Spline+Sans:wght@300;400;500;600;700;800&display=swap"
         rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700&display=swap"
         rel="stylesheet" />
-    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="../styles.css" />
+    <link rel="stylesheet" href="allMovies.css" />
 </head>
 
 <body>
     <div class="relative flex flex-col w-full">
         <header class="site-header">
             <div class="header-left">
-                <a href="index.html" class="logo-link">
+                <a href="../index.html" class="logo-link">
                     <div class="logo-icon">
-                        <img src="Imagenes/logo.png" alt="Logo" class="w-full h-full object-contain">
+                        <img src="../Imagenes/logo.png" alt="Logo" class="w-full h-full object-contain">
                     </div>
                     <h2 class="logo-text">STREAM</h2>
                 </a>
                 <nav class="main-nav">
-                    <a class="nav-link active" href="index.html">Home</a>
-                    <a class="nav-link" href="allMovies/allMovies.html">Movies</a>
-                    <a class="nav-link" href="favorites/favorites.html">MyFavorites</a>
+                    <a class="nav-link" href="../index.html">Home</a>
+                    <a class="nav-link active" href="allMovies.html">Movies</a>
+                    <a class="nav-link" href="../favorites/favorites.html">MyFavorites</a>
                 </nav>
             </div>
             <div class="header-right">
@@ -44,55 +45,18 @@
         </header>
 
         <main class="main-content">
-            <section class="mb-10">
-                <div class="hero-card group">
-                    <div class="hero-bg"
-                        style='background-image: linear-gradient(to top, rgba(11, 13, 16, 0.95) 0%, rgba(11, 13, 16, 0.4) 40%, rgba(11, 13, 16, 0) 100%), url("https://lh3.googleusercontent.com/aida-public/AB6AXuCdrZamZ2-Tzj1lwrbkZwTvT4Xr4ZP394cEsBBelKnB5ktqdNmPXqiS5xeSi91O38x4VhTTLtc1KvOvfr_wCqolmRmBHSqC91_gv7XffK4iai2NQyPGkkkdpR98xfHiOLOKr9UEWUi0f6ilY5fzNAN_zTdzygEeLa5lPitn2IFhfPs8dCenr_1p0jQit2HhBrIq60EhMl5EZVp92xtoDURwSa2ff_DvM9CFbKeB7n-FSROrbLgqo8vd7WkXqzbGGpwLPQ5S8pMXNGKI");'>
-                        <div class="hero-content">
-                            <span class="badge-featured">Featured</span>
-                            <h1 class="hero-title">The Mandalorian</h1>
-                            <p class="hero-desc">The travels of a lone bounty hunter in the outer reaches of the galaxy,
-                                far from the authority of the New Republic.</p>
-                            <div class="hero-actions">
-                                <button class="btn btn-primary">
-                                    <span class="material-symbols-outlined">play_arrow</span><span>Play Now</span>
-                                </button>
-                                <button class="btn btn-glass">
-                                    <span class="material-symbols-outlined">info</span><span>More Info</span>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <section class="brands-section">
-                <div class="brands-scroll">
-                    <div class="brand-card group">
-                        <span class="font-bold group-hover:text-primary">DISNEY</span>
-                    </div>
-                    <div class="brand-card group">
-                        <span class="font-bold group-hover:text-primary">PIXAR</span>
-                    </div>
-                    <div class="brand-card group">
-                        <span class="font-bold group-hover:text-primary">MARVEL</span>
-                    </div>
-                    <div class="brand-card group border-primary">
-                        <span class="text-primary font-bold">STAR WARS</span>
-                    </div>
-                    <div class="brand-card group">
-                        <span class="font-bold group-hover:text-primary">ADVENTURE</span>
-                    </div>
-                </div>
-            </section>
-
             <div class="section-header">
-                <h2 class="section-title">Recommended for You</h2>
-                <a class="view-all" href="#">View All</a>
+                <h2 class="section-title">All Movies</h2>
+                <div class="category-filters">
+                    <button class="cat-pill active">All</button>
+                    <button class="cat-pill">Action</button>
+                    <button class="cat-pill">Animation</button>
+                    <button class="cat-pill">Sci-Fi</button>
+                </div>
             </div>
 
             <div class="movies-grid">
-
+                <!-- Movie cards will be here -->
                 <div class="movie-card">
                     <div class="poster-image"
                         style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDnVtz8hXPJyVKr0vedjfz7rGN1jzxuR-19X3LW7UHau7vQeC1ucYCHBEy_qa-xJInd4cYMW5dBcWKB7LbHoujWMiRFwRI-1y294q5DR_3XtDtaLfB1ICtt9DO_9CcY3ECQA1bhrweLZbHrErJcZOiy3RiWVrujHbGljmSTtQutQ9UhAzLmhYzBmEBQr1j4MRgfyREfSwNMs_l0QDiIkzWNxSM7r0CUe3t8pMIKZ6WivHOva7NRKcvqFbQ25GyMJkFMrVNJakul3QTR");'>
@@ -251,14 +215,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="section-header">
-                <h2 class="section-title">New Releases</h2>
-                <a class="view-all" href="#">View All</a>
-            </div>
-
-            <div class="movies-grid">
                 <div class="movie-card">
                     <div class="poster-image"
                         style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDY8U5ZV4rsyAzxOtXV84QdcwkPX_1No13HdgTCL55Eh3BjwAbQD5bV3RK5WB1wVES-6RZel0zZW_2Z4J-gW69fvqnkZAya84WB5uJS8x4Ict-87BbHD1mvoUDVNCGrVgNmG7oYPo9j4PUNWpzQ_Q6qdNYXauYDkYQLxwK1fY76-7yvBjro5aolnJzDBjWYjKtFFfM4eiFcc873G6u6dZdsFwKpB7bq144q0w5Tp_ww_kFrPH4NI-UQ6siwZBYt-nCbiEEbJr80VId6");'>
@@ -422,7 +379,8 @@
         <footer class="site-footer">
             <div class="footer-content">
                 <div class="logo-icon text-slate-400">
-                    <img src="Imagenes/logo.png" alt="Logo" class="w-full h-full object-contain grayscale opacity-50">
+                    <img src="../Imagenes/logo.png" alt="Logo"
+                        class="w-full h-full object-contain grayscale opacity-50">
                 </div>
                 <div class="footer-links">
                     <a href="#">Privacy Policy</a>
@@ -433,7 +391,7 @@
             </div>
         </footer>
     </div>
-    <script src="app.js"></script>
+    <script src="allMovies.js"></script>
 </body>
 
 </html>
