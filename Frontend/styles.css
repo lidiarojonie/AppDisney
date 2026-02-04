@@ -303,6 +303,12 @@ html.dark .search-input {
     border: 2px solid #0b0d10;
 }
 
+.user-dropdown-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
 .user-avatar {
     width: 2.25rem;
     height: 2.25rem;
@@ -317,6 +323,62 @@ html.dark .search-input {
 
 .user-avatar:hover {
     box-shadow: 0 0 0 2px var(--color-primary);
+}
+
+.user-dropdown {
+    position: absolute;
+    top: calc(100% + 1rem);
+    right: 0;
+    width: 180px;
+    background-color: #1a2333;
+    border: 1px solid var(--color-border);
+    border-radius: 0.75rem;
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5);
+    padding: 0.5rem;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 1000;
+}
+
+.user-dropdown.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.dropdown-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem 1rem;
+    color: var(--color-text-main);
+    font-size: 0.875rem;
+    font-weight: 500;
+    border-radius: 0.5rem;
+    transition: all 0.2s;
+    text-decoration: none;
+}
+
+.dropdown-item:hover {
+    background-color: rgba(229, 9, 20, 0.1);
+    color: var(--color-primary);
+}
+
+.dropdown-divider {
+    height: 1px;
+    background-color: var(--color-border);
+    margin: 0.5rem;
+}
+
+.dropdown-item.logout {
+    color: #ef4444;
+}
+
+.dropdown-item.logout:hover {
+    background-color: rgba(239, 68, 68, 0.1);
+    color: #f87171;
 }
 
 /* Layout */

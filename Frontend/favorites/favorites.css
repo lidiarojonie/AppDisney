@@ -356,7 +356,7 @@ input {
     top: 0.75rem;
     right: 0.75rem;
     z-index: 30;
-    color: var(--color-accent);
+    color: var(--color-primary);
     cursor: pointer;
     transition: transform 0.2s ease;
 }

@@ -40,67 +40,88 @@
                         <span class="material-symbols-outlined">notifications</span>
                         <div class="notification-dot"></div>
                     </div>
-                    <div class="user-avatar"
-                        style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBcHDc-ey8kjvRGkxEDP3YvCJF539f_5sbUYgDYZsCjD-jaVeC37DBP3LjjfMBqzyzcVUltjOb1TSiCUvKrAg96V1_E4ETp3kqnTXgGmEnl2Pdh22QEqTWMom6vu6p686Z7OwlhynDD2oj5TIRpY84Xwe7zzQ9uQA-WSeQT3Gzp6dwjCbDuG9miTrh4zXWHMWsovQY8oFKDRVSU0RHbkiH23DtZM8eTLhMKyAMumQ5b84RvaPz_F6-tBVojX-P6lSaZC7r-m8wlMO54");'>
+                    <div class="user-dropdown-container">
+                        <div class="user-avatar"
+                            style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBcHDc-ey8kjvRGkxEDP3YvCJF539f_5sbUYgDYZsCjD-jaVeC37DBP3LjjfMBqzyzcVUltjOb1TSiCUvKrAg96V1_E4ETp3kqnTXgGmEnl2Pdh22QEqTWMom6vu6p686Z7OwlhynDD2oj5TIRpY84Xwe7zzQ9uQA-WSeQT3Gzp6dwjCbDuG9miTrh4zXWHMWsovQY8oFKDRVSU0RHbkiH23DtZM8eTLhMKyAMumQ5b84RvaPz_F6-tBVojX-P6lSaZC7r-m8wlMO54");'>
+                        </div>
+                        <div class="user-dropdown">
+                            <a href="#" class="dropdown-item">
+                                <span class="material-symbols-outlined">person</span>
+                                <span>Profile</span>
+                            </a>
+                            <a href="../plans/plans.html" class="dropdown-item">
+                                <span class="material-symbols-outlined">subscriptions</span>
+                                <span>Subscription</span>
+                            </a>
+                            <a href="#" class="dropdown-item">
+                                <span class="material-symbols-outlined">settings</span>
+                                <span>Settings</span>
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <a href="#" class="dropdown-item logout">
+                                <span class="material-symbols-outlined">logout</span>
+                                <span>Log Out</span>
+                            </a>
+                        </div>
                     </div>
                 </div>
-            </header>
-            <main class="main-wrapper">
-                <div class="layout-content-container">
-                    <div class="content-header">
-                        <div class="page-title-group">
-                            <h1 class="page-title">My Favorites</h1>
-                            <p class="page-subtitle">Your curated collection of Disney magic</p>
+                <main class="main-wrapper">
+                    <div class="layout-content-container">
+                        <div class="content-header">
+                            <div class="page-title-group">
+                                <h1 class="page-title">My Favorites</h1>
+                                <p class="page-subtitle">Your curated collection of Disney magic</p>
+                            </div>
+                            <div class="controls-group">
+                                <label class="favorites-search-bar">
+                                    <div class="search-icon-wrapper">
+                                        <span class="material-symbols-outlined text-sm-icon">search</span>
+                                    </div>
+                                    <input class="favorites-search-input" placeholder="Search within favorites"
+                                        value="" />
+                                </label>
+                                <button class="filter-btn">
+                                    <span class="material-symbols-outlined text-xs-icon">filter_list</span>
+                                    Filter
+                                </button>
+                            </div>
                         </div>
-                        <div class="controls-group">
-                            <label class="favorites-search-bar">
-                                <div class="search-icon-wrapper">
-                                    <span class="material-symbols-outlined text-sm-icon">search</span>
-                                </div>
-                                <input class="favorites-search-input" placeholder="Search within favorites" value="" />
-                            </label>
-                            <button class="filter-btn">
-                                <span class="material-symbols-outlined text-xs-icon">filter_list</span>
-                                Filter
+                        <div class="category-filters">
+                            <button class="cat-pill active">
+                                <p>All Items</p>
+                            </button>
+                            <button class="cat-pill inactive">
+                                <p>Movies</p>
+                            </button>
+                            <button class="cat-pill inactive">
+                                <p>Disney+ Originals</p>
+                            </button>
+                        </div>
+                        <div class="poster-grid">
+                            <!-- Favorites will be loaded here via JS -->
+                        </div>
+                        <div class="view-more-container">
+                            <button class="view-more-btn">
+                                <span class="material-symbols-outlined text-sm-icon">refresh</span>
+                                View More
                             </button>
                         </div>
                     </div>
-                    <div class="category-filters">
-                        <button class="cat-pill active">
-                            <p>All Items</p>
-                        </button>
-                        <button class="cat-pill inactive">
-                            <p>Movies</p>
-                        </button>
-                        <button class="cat-pill inactive">
-                            <p>Disney+ Originals</p>
-                        </button>
+                </main>
+                <footer class="site-footer">
+                    <div class="footer-content">
+                        <div class="logo-icon text-slate-400">
+                            <img src="../Imagenes/logo.png" alt="Logo"
+                                class="w-full h-full object-contain grayscale opacity-50">
+                        </div>
+                        <div class="footer-links">
+                            <a href="#">Privacy Policy</a>
+                            <a href="#">Help</a>
+                            <a href="#">About Us</a>
+                        </div>
+                        <p class="copyright">© 2026 Streaming Service. All rights reserved.</p>
                     </div>
-                    <div class="poster-grid">
-                        <!-- Favorites will be loaded here via JS -->
-                    </div>
-                    <div class="view-more-container">
-                        <button class="view-more-btn">
-                            <span class="material-symbols-outlined text-sm-icon">refresh</span>
-                            View More
-                        </button>
-                    </div>
-                </div>
-            </main>
-            <footer class="site-footer">
-                <div class="footer-content">
-                    <div class="logo-icon text-slate-400">
-                        <img src="../Imagenes/logo.png" alt="Logo"
-                            class="w-full h-full object-contain grayscale opacity-50">
-                    </div>
-                    <div class="footer-links">
-                        <a href="#">Privacy Policy</a>
-                        <a href="#">Help</a>
-                        <a href="#">About Us</a>
-                    </div>
-                    <p class="copyright">© 2026 Streaming Service. All rights reserved.</p>
-                </div>
-            </footer>
+                </footer>
         </div>
     </div>
 
