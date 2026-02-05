@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     // 3. Define the toggle function
-    const toggleFavorite = (btn) => {
+    const toggleFavorite = async (btn) => {
         const title = btn.dataset.title;
         const index = favorites.findIndex(f => f.title === title);
 
@@ -45,15 +45,26 @@ document.addEventListener('DOMContentLoaded', () => {
             updateButtonState(btn, false);
         } else {
             // Add to favorites
-            // Try to get full object data
-            const movieData = getMovieData(btn);
-            if (movieData) {
-                favorites.push(movieData);
-                updateButtonState(btn, true);
-            } else {
-                // Fallback for pages where we might not have full card data (unlikely in index)
-                // But if we are in favorites page, we might handle un-favoriting differently
-                console.warn('Could not extract movie data');
+            try {
+                const response = await fetch(API);
+                if (!response.ok) throw new Error("API error");
+                const data = await response.json();
+                const movie = data.movies.find(m => m.title === title);
+
+                if (movie) {
+                    // Extract just the filename for consistency with local paths
+                    const fileName = movie.photo_url ? movie.photo_url.split('/').pop() : "";
+                    const cleanedMovie = {
+                        ...movie,
+                        photo_url: `MoviesImagenes/${fileName}`
+                    };
+                    favorites.push(cleanedMovie);
+                    updateButtonState(btn, true);
+                } else {
+                    console.warn('Movie not found in API');
+                }
+            } catch (error) {
+                console.error("Error fetching movie data:", error);
             }
         }
 
@@ -61,7 +72,7 @@ document.addEventListener('DOMContentLoaded', () => {
         localStorage.setItem('favorites', JSON.stringify(favorites));
 
         // Sync other buttons for the same movie
-        syncAllButtons(title, index === -1); // index === -1 means we just added it
+        syncAllButtons(title, index === -1);
     };
 
     // 4. Update button visual state
@@ -117,135 +128,77 @@ const $contenedor = document.querySelector(".movies-grid");
 const $continueWatching = document.getElementById("continue-watching-container");
 const $newReleases = document.getElementById("new-releases-container");
 
+// --- FUNCIÓN PRINCIPAL ---
 async function LoadMovies() {
-    try {
-        // const response = await fetch(API);
-        // const data = await response.json();
-        // const allItems = data.movies;
+    if (!$contenedor) return;
 
-        const allItems = [
-            { titulo: "The Mandalorian", url_portada: "MoviesImagenes/TheMandalorian.jpg", is_series: 1, duration: "45m", categories: ["Sci-Fi", "Action", "Adventure"] },
-            { titulo: "Avatar", url_portada: "MoviesImagenes/Avatar.jpg", is_series: 0, duration: "2h 42m", categories: ["Sci-Fi", "Action", "Adventure"] },
-            { titulo: "Avengers", url_portada: "MoviesImagenes/Avengers.jpeg", is_series: 0, duration: "2h 23m", categories: ["Action", "Sci-Fi", "Superhero"] },
-            { titulo: "Star Wars", url_portada: "MoviesImagenes/StarWars.jpg", is_series: 0, duration: "2h 01m", categories: ["Sci-Fi", "Action", "Fantasy"] },
-            { titulo: "Black Panther", url_portada: "MoviesImagenes/BlackPanther.jpeg", is_series: 0, duration: "2h 14m", categories: ["Action", "Superhero", "Adventure"] },
-            { titulo: "Black Widow", url_portada: "MoviesImagenes/BlackWidow.jpeg", is_series: 0, duration: "2h 14m", categories: ["Action", "Thriller", "Superhero"] },
-            { titulo: "Coco", url_portada: "MoviesImagenes/Coco.jpeg", is_series: 0, duration: "1h 45m", categories: ["Animation", "Family", "Music"] },
-            { titulo: "Encanto", url_portada: "MoviesImagenes/Encanto.jpg", is_series: 0, duration: "1h 42m", categories: ["Animation", "Family", "Musical"] },
-            { titulo: "Frozen", url_portada: "MoviesImagenes/Frozen.jpg", is_series: 0, duration: "1h 42m", categories: ["Animation", "Family", "Adventure"] },
-            { titulo: "Moana", url_portada: "MoviesImagenes/Moana.jpeg", is_series: 0, duration: "1h 47m", categories: ["Animation", "Family", "Adventure"] },
-            { titulo: "Aladdin", url_portada: "MoviesImagenes/Aladdin.jpeg", is_series: 0, duration: "2h 08m", categories: ["Adventure", "Family", "Romance"] },
-            { titulo: "Jungle Cruise", url_portada: "MoviesImagenes/JungleCruise.jpeg", is_series: 0, duration: "2h 07m", categories: ["Adventure", "Comedy", "Action"] },
-            { titulo: "Maleficent", url_portada: "MoviesImagenes/Maleficent.png", is_series: 0, duration: "1h 37m", categories: ["Fantasy", "Family", "Adventure"] },
-            { titulo: "Pirates of the Caribbean", url_portada: "MoviesImagenes/PiratesCaribbean.jpg", is_series: 0, duration: "2h 23m", categories: ["Action", "Adventure", "Fantasy"] },
-            { titulo: "Ratatouille", url_portada: "MoviesImagenes/Ratatouille.jpeg", is_series: 0, duration: "1h 51m", categories: ["Animation", "Comedy", "Family"] },
-            { titulo: "The Lion King", url_portada: "MoviesImagenes/TheLionKing.jpg", is_series: 0, duration: "1h 58m", categories: ["Animation", "Drama", "Adventure"] },
-            { titulo: "Toy Story", url_portada: "MoviesImagenes/ToyStory.jpg", is_series: 0, duration: "1h 21m", categories: ["Animation", "Adventure", "Comedy"] },
-            { titulo: "Tron", url_portada: "MoviesImagenes/Tron.jpg", is_series: 0, duration: "2h 05m", categories: ["Sci-Fi", "Action", "Adventure"] },
-            { titulo: "Up", url_portada: "MoviesImagenes/Up.jpg", is_series: 0, duration: "1h 36m", categories: ["Animation", "Adventure", "Comedy"] },
-            { titulo: "Wall-E", url_portada: "MoviesImagenes/WallE.jpeg", is_series: 0, duration: "1h 38m", categories: ["Animation", "Sci-Fi", "Family"] }
-        ];
+    try {
+        const response = await fetch(API);
+        if (!response.ok) throw new Error("Error en la respuesta de la API");
+
+        const data = await response.json();
+        // IMPORTANTE: Asegúrate de que tu API devuelve los datos en data.movies
+        const allItems = data.movies;
 
         const path = window.location.pathname;
-        const esHome = path.endsWith("home.html") || path === "/" || path === "";
+        const esHome = path.endsWith("index.html") || path === "/" || path === "" || path.includes("index");
+        const esPaginaSeries = path.includes("series.html");
+        const esPaginaPeliculas = path.includes("allMovies");
 
-        // Helper to create card HTML
-        const createCard = (peli, withPlayButton = false) => {
-            const categoriesHtml = peli.categories
-                .map((cat, index, arr) => `<span>${cat}</span>${index < arr.length - 1 ? '<span>•</span>' : ''}`)
-                .join('');
+        const filtrados = allItems.filter((item) => {
+            if (esHome) return true;
+            // En tu BD: is_series (1 para sí, 0 para no)
+            if (esPaginaSeries) return item.is_series === 1;
+            if (esPaginaPeliculas) return true; // Show all items, same as home
+            return true;
+        });
 
-            return `
+        const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+
+        let htmlTemplate = "";
+
+        filtrados.forEach((peli) => {
+            // 1. Limpieza de imagen: extraemos solo "Encanto.jpg" de la ruta de la BD
+            const nombreArchivo = peli.photo_url ? peli.photo_url.split('/').pop() : "";
+            const rutaImagenLocal = `MoviesImagenes/${nombreArchivo}`;
+
+            // 2. Lógica de favoritos
+            const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+            const isFav = favorites.some(f => f.title === peli.title);
+            const favIcon = isFav ? 'favorite' : 'favorite_border';
+            const favClass = isFav ? 'text-red-500 fill-current' : 'text-slate-400';
+
+            htmlTemplate += `
                 <div class="movie-card">
-                    <div class="poster-image">
-                        <img src="${peli.url_portada}" alt="${peli.titulo}" style="width: 100%; height: 100%; object-fit: cover; border-radius: 0.5rem;">
-                        ${withPlayButton ? `
-                        <div class="play-overlay">
-                            <span class="material-symbols-outlined">play_arrow</span>
-                        </div>` : ''}
-                    </div>
-                    <div class="movie-info-static">
-                        <span>${peli.titulo}</span>
-                    </div>
+                    <div class="poster-image" style="background-image: url('${rutaImagenLocal}')"></div>
+
                     <div class="movie-popover">
-                        <div class="popover-thumb" style="background-image: url('${peli.url_portada}')"></div>
+                        <div class="popover-thumb" style="background-image: url('${rutaImagenLocal}')"></div>
                         <div class="popover-content">
                             <div class="movie-title-row">
-                                <h4 class="movie-title">${peli.titulo}</h4>
-                                <button class="fav-btn" data-title="${peli.titulo}" 
-                                        data-photo_url="${peli.url_portada}" 
-                                        data-release_year="2024" 
-                                        data-duration_min="${peli.duration}" 
-                                        data-summary="Movie summary..." 
-                                        data-is_series="${peli.is_series}">
-                                    <span class="material-symbols-outlined">favorite_border</span>
+                                <h3 class="movie-title">${peli.title}</h3>
+                                <button class="fav-btn ${favClass}" data-title="${peli.title}">
+                                    <span class="material-symbols-outlined">${favIcon}</span>
                                 </button>
                             </div>
                             <div class="meta-row">
-                                <span class="match-score">98% Match</span>
-                                <span class="rating-badge">${peli.is_series ? 'TV-14' : 'PG-13'}</span>
-                                <span>${peli.duration}</span>
-                                <span>HD</span>
-                            </div>
-                            <div class="meta-row">
-                                ${categoriesHtml}
+                                <span>${peli.release_year}</span>
+                                <span class="rating-badge">HD</span>
+                                <span>${peli.duration_min} min</span>
                             </div>
                         </div>
                     </div>
                 </div>
             `;
-        };
+        });
 
-        if (esHome) {
-            // Populate Carousels
-            // 1. Continue Watching (First 5 items)
-            if ($continueWatching) {
-                $continueWatching.innerHTML = allItems.slice(0, 5).map(item => createCard(item, true)).join('');
-            }
-
-            // 2. New Releases (Next 5 items)
-            if ($newReleases) {
-                $newReleases.innerHTML = allItems.slice(5, 10).map(item => createCard(item)).join('');
-            }
-
-            // 3. Catalogue (All items)
-            if ($contenedor) {
-                $contenedor.innerHTML = allItems.map(item => createCard(item)).join('');
-            }
-        } else {
-            // Logic for other pages (All Movies, etc.)
-            const filtrados = allItems.filter((item) => {
-                const esPaginaSeries = path.includes("series.html");
-                const esPaginaPeliculas = path.includes("peliculas.html"); // Assuming this logic was correct for other pages or just generic listing
-                // Note: Original code had specific filtering logic, preserving basic list render for other pages
-                return true;
-            });
-            if ($contenedor) {
-                $contenedor.innerHTML = filtrados.map(item => createCard(item)).join('');
-            }
-        }
-
-        // Re-initialize favorite buttons after DOM update
-        const initButtons = () => {
-            const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
-            const btns = document.querySelectorAll('.fav-btn');
-            btns.forEach(btn => {
-                const title = btn.dataset.title;
-                const isFav = favorites.some(f => f.title === title);
-                const icon = btn.querySelector('.material-symbols-outlined');
-                if (isFav) {
-                    icon.textContent = 'favorite';
-                    icon.classList.add('text-red-500', 'fill-current');
-                    btn.classList.add('text-red-500');
-                }
-            });
-        };
-        initButtons();
+        $contenedor.innerHTML = htmlTemplate;
 
     } catch (error) {
         console.error("Error al cargar:", error);
-        if ($contenedor) $contenedor.innerHTML = "<p>Error al conectar con la base de datos.</p>";
+        $contenedor.innerHTML = `<p class="error">Error al cargar la base de datos.</p>`;
     }
 }
 
+// Ejecutar la carga
 LoadMovies();

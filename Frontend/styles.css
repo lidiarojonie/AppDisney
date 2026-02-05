@@ -667,11 +667,11 @@ html.dark .search-input {
 
 .movies-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 2rem;
-    padding: 2.5rem 2rem 5rem 2rem;
-    /* Added padding to match carousel and prevent clipping */
-    margin-bottom: 3rem;
+    /* Usamos 1fr para que todas las columnas ocupen el mismo espacio exacto */
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); 
+    gap: 1.5rem;
+    padding-bottom: 5rem;
+    align-items: start; /* Alinea todas al inicio de la fila */
 }
 
 @media (min-width: 640px) {
@@ -695,19 +695,25 @@ html.dark .search-input {
 /* Movie Card */
 .movie-card {
     position: relative;
+    width: 100%;
     display: flex;
     flex-direction: column;
 }
 
 .poster-image {
     width: 100%;
-    aspect-ratio: 2/3;
+    /* Relación de aspecto 2:3 (Póster estándar) */
+    aspect-ratio: 2 / 3 !important; 
     border-radius: 0.5rem;
     background-size: cover;
     background-position: center;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-    cursor: pointer;
-    transition: opacity 0.3s;
+    background-repeat: no-repeat;
+    background-color: #1a2333;
+    
+    /* Evita que cualquier contenido interno la deforme */
+    display: block; 
+    overflow: hidden; 
+    position: relative;
 }
 
 .movie-info-static {
@@ -781,9 +787,10 @@ html.dark .search-input {
 
 .popover-thumb {
     width: 100%;
-    aspect-ratio: 16/9;
+    aspect-ratio: 16/9; /* Formato panorámico para el previo */
     background-size: cover;
     background-position: center;
+    background-repeat: no-repeat;
 }
 
 .popover-content {
