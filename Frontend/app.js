@@ -114,75 +114,78 @@ const API =
     "https://legendary-telegram-pjqv499g9jj5279wv-3000.app.github.dev/api/movies";
 const $contenedor = document.querySelector(".movies-grid");
 
+// --- FUNCIÓN PRINCIPAL ---
 async function LoadMovies() {
+    if (!$contenedor) return;
+
     try {
         const response = await fetch(API);
+        if (!response.ok) throw new Error("Error en la respuesta de la API");
+        
         const data = await response.json();
-        const allItems = data.movies;
+        // IMPORTANTE: Asegúrate de que tu API devuelve los datos en data.movies
+        const allItems = data.movies; 
 
         const path = window.location.pathname;
-
-        const esHome = path.endsWith("index.html") || path === "/" || path === "";
+        const esHome = path.endsWith("index.html") || path === "/" || path === "" || path.includes("index");
         const esPaginaSeries = path.includes("series.html");
-        const esPaginaPeliculas = path.includes("peliculas.html");
+        const esPaginaPeliculas = path.includes("allMovies");
 
         const filtrados = allItems.filter((item) => {
-            if (esHome) {
-                return true;
-            } else if (esPaginaSeries) {
-                return item.is_series === 0;
-            } else if (esPaginaPeliculas) {
-                return item.is_series === 1;
-            }
+            if (esHome) return true;
+            // En tu BD: is_series (1 para sí, 0 para no)
+            if (esPaginaSeries) return item.is_series === 1;
+            if (esPaginaPeliculas) return item.is_series === 0;
             return true;
         });
 
+        const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+
         let htmlTemplate = "";
 
-        filtrados.forEach((peli) => {
-          htmlTemplate += `
-            <div class="tarjeta-pelicula">
-                <div class="portada-pelicula">
-                    <img src="${peli.url_portada}" alt="${peli.titulo}" loading="lazy" />
+       filtrados.forEach((peli) => {
+            // 1. Limpieza de imagen: extraemos solo "Encanto.jpg" de la ruta de la BD
+            const nombreArchivo = peli.photo_url ? peli.photo_url.split('/').pop() : "";
+            const rutaImagenLocal = `MoviesImagenes/${nombreArchivo}`;
+            
+            // 2. Lógica de favoritos
+            const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+            const isFav = favorites.some(f => f.title === peli.title);
+            const favIcon = isFav ? 'favorite' : 'favorite_border';
+            const favClass = isFav ? 'text-red-500 fill-current' : 'text-slate-400';
+
+            htmlTemplate += `
+                <div class="movie-card">
+                    <div class="poster-image" style="background-image: url('${rutaImagenLocal}')"></div>
+
+                    <div class="movie-popover">
+                        <div class="popover-thumb" style="background-image: url('${rutaImagenLocal}')"></div>
+                        <div class="popover-content">
+                            <div class="movie-title-row">
+                                <h3 class="movie-title">${peli.title}</h3>
+                                <button class="fav-btn ${favClass}" data-title="${peli.title}">
+                                    <span class="material-symbols-outlined">${favIcon}</span>
+                                </button>
+                            </div>
+                            <div class="meta-row">
+                                <span>${peli.release_year}</span>
+                                <span class="rating-badge">HD</span>
+                                <span>${peli.duration_min} min</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="info-tarjeta">
-                    <span>${peli.titulo}</span>
-                </div>
-            </div>
-          `;
+            `;
         });
 
         $contenedor.innerHTML = htmlTemplate;
-      } catch (error) {
+
+    } catch (error) {
         console.error("Error al cargar:", error);
-        $contenedor.innerHTML = "<p>Error al conectar con la base de datos.</p>";
-      }
+        $contenedor.innerHTML = `<p class="error">Error al cargar la base de datos.</p>`;
     }
+}
 
-    LoadMovies();
-
-    async function fetchMovies(){
-        try{
-            const responde = await fetch(API_URL);
-
-            const data = await response.json();
-
-            let htmlContent = '';
-
-            data.movies.forEach(item => {
-                // 
-                htmlContent += `
-                    <div class = "movie-card">
-                        <div class="movie-title">${item.movie}</div>
-                        <div class="movie-img">
-                            <img src="${item.url}" alt="${item.movie}">
-                            </div>
-                    </div>    
-                `;
-            })
-        }
-        catch{
-            
-        }
-    }
+// Ejecutar la carga
+LoadMovies();
     
