@@ -123,7 +123,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 const API =
-    "https://silver-chainsaw-7v4q6wwrw77vh4x7-3000.app.github.dev/api/movies";
+    "https://symmetrical-journey-5gp6j5545qjwf74gv-3000.app.github.dev/api/movies";
 const $contenedor = document.querySelector(".movies-grid");
 const $continueWatching = document.getElementById("continue-watching-container");
 const $newReleases = document.getElementById("new-releases-container");
