@@ -114,4 +114,12 @@ document.addEventListener('DOMContentLoaded', () => {
         btn.addEventListener('click', () => {
             // Update UI
             filterButtons.forEach(b => b.classList.replace('active', 'inactive'));
-            btn.c
+            btn.classList.replace('inactive', 'active');
+            currentFilter = btn.textContent.trim();
+            applyFilter();
+        });
+    });
+
+    // Initial render
+    applyFilter();
+});

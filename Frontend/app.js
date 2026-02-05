@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     // 3. Define the toggle function
-    const toggleFavorite = (btn) => {
+    const toggleFavorite = async (btn) => {
         const title = btn.dataset.title;
         const index = favorites.findIndex(f => f.title === title);
 
@@ -45,15 +45,26 @@ document.addEventListener('DOMContentLoaded', () => {
             updateButtonState(btn, false);
         } else {
             // Add to favorites
-            // Try to get full object data
-            const movieData = getMovieData(btn);
-            if (movieData) {
-                favorites.push(movieData);
-                updateButtonState(btn, true);
-            } else {
-                // Fallback for pages where we might not have full card data (unlikely in index)
-                // But if we are in favorites page, we might handle un-favoriting differently
-                console.warn('Could not extract movie data');
+            try {
+                const response = await fetch(API);
+                if (!response.ok) throw new Error("API error");
+                const data = await response.json();
+                const movie = data.movies.find(m => m.title === title);
+
+                if (movie) {
+                    // Extract just the filename for consistency with local paths
+                    const fileName = movie.photo_url ? movie.photo_url.split('/').pop() : "";
+                    const cleanedMovie = {
+                        ...movie,
+                        photo_url: `MoviesImagenes/${fileName}`
+                    };
+                    favorites.push(cleanedMovie);
+                    updateButtonState(btn, true);
+                } else {
+                    console.warn('Movie not found in API');
+                }
+            } catch (error) {
+                console.error("Error fetching movie data:", error);
             }
         }
 
@@ -61,7 +72,7 @@ document.addEventListener('DOMContentLoaded', () => {
         localStorage.setItem('favorites', JSON.stringify(favorites));
 
         // Sync other buttons for the same movie
-        syncAllButtons(title, index === -1); // index === -1 means we just added it
+        syncAllButtons(title, index === -1);
     };
 
     // 4. Update button visual state
@@ -121,10 +132,10 @@ async function LoadMovies() {
     try {
         const response = await fetch(API);
         if (!response.ok) throw new Error("Error en la respuesta de la API");
-        
+
         const data = await response.json();
         // IMPORTANTE: Asegúrate de que tu API devuelve los datos en data.movies
-        const allItems = data.movies; 
+        const allItems = data.movies;
 
         const path = window.location.pathname;
         const esHome = path.endsWith("index.html") || path === "/" || path === "" || path.includes("index");
@@ -135,7 +146,7 @@ async function LoadMovies() {
             if (esHome) return true;
             // En tu BD: is_series (1 para sí, 0 para no)
             if (esPaginaSeries) return item.is_series === 1;
-            if (esPaginaPeliculas) return item.is_series === 0;
+            if (esPaginaPeliculas) return true; // Show all items, same as home
             return true;
         });
 
@@ -143,11 +154,11 @@ async function LoadMovies() {
 
         let htmlTemplate = "";
 
-       filtrados.forEach((peli) => {
+        filtrados.forEach((peli) => {
             // 1. Limpieza de imagen: extraemos solo "Encanto.jpg" de la ruta de la BD
             const nombreArchivo = peli.photo_url ? peli.photo_url.split('/').pop() : "";
             const rutaImagenLocal = `MoviesImagenes/${nombreArchivo}`;
-            
+
             // 2. Lógica de favoritos
             const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
             const isFav = favorites.some(f => f.title === peli.title);
@@ -188,4 +199,3 @@ async function LoadMovies() {
 
 // Ejecutar la carga
 LoadMovies();
-    
