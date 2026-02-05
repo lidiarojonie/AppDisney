@@ -129,40 +129,36 @@ const $continueWatching = document.getElementById("continue-watching-container")
 const $newReleases = document.getElementById("new-releases-container");
 
 // --- FUNCIÓN PRINCIPAL ---
-async function LoadMovies() {
+async function LoadMovies(genreId = null) {
     if (!$contenedor) return;
 
     try {
-        const response = await fetch(API);
+        const fetchUrl = genreId ? `${API}/${genreId}` : API;
+        const response = await fetch(fetchUrl);
         if (!response.ok) throw new Error("Error en la respuesta de la API");
 
         const data = await response.json();
-        // IMPORTANTE: Asegúrate de que tu API devuelve los datos en data.movies
         const allItems = data.movies;
 
         const path = window.location.pathname;
-        const esHome = path.endsWith("index.html") || path === "/" || path === "" || path.includes("index");
+        const esHome = path.endsWith("home.html") || path.endsWith("index.html") || path === "/" || path === "" || path.includes("index");
         const esPaginaSeries = path.includes("series.html");
         const esPaginaPeliculas = path.includes("allMovies");
 
         const filtrados = allItems.filter((item) => {
+            if (genreId) return true; // If we have a genreId, the API already filtered it
             if (esHome) return true;
-            // En tu BD: is_series (1 para sí, 0 para no)
             if (esPaginaSeries) return item.is_series === 1;
-            if (esPaginaPeliculas) return true; // Show all items, same as home
+            if (esPaginaPeliculas) return true;
             return true;
         });
-
-        const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
 
         let htmlTemplate = "";
 
         filtrados.forEach((peli) => {
-            // 1. Limpieza de imagen: extraemos solo "Encanto.jpg" de la ruta de la BD
             const nombreArchivo = peli.photo_url ? peli.photo_url.split('/').pop() : "";
             const rutaImagenLocal = `MoviesImagenes/${nombreArchivo}`;
 
-            // 2. Lógica de favoritos
             const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
             const isFav = favorites.some(f => f.title === peli.title);
             const favIcon = isFav ? 'favorite' : 'favorite_border';
@@ -192,7 +188,7 @@ async function LoadMovies() {
             `;
         });
 
-        $contenedor.innerHTML = htmlTemplate;
+        $contenedor.innerHTML = htmlTemplate || '<p class="text-center w-full py-10 opacity-50">No movies found in this category.</p>';
 
     } catch (error) {
         console.error("Error al cargar:", error);
@@ -200,5 +196,44 @@ async function LoadMovies() {
     }
 }
 
-// Ejecutar la carga
+// Brand Filter Listeners
+const brandCards = document.querySelectorAll('.brand-card');
+brandCards.forEach(card => {
+    card.addEventListener('click', () => {
+        // Toggle active visual state
+        brandCards.forEach(c => {
+            c.classList.remove('border-primary');
+            c.querySelector('span').classList.remove('text-primary');
+            c.querySelector('span').classList.add('group-hover:text-primary');
+        });
+
+        card.classList.add('border-primary');
+        const span = card.querySelector('span');
+        span.classList.add('text-primary');
+        span.classList.remove('group-hover:text-primary');
+
+        const genreId = card.dataset.genreId;
+        LoadMovies(genreId);
+
+        // Scroll to grid
+        $contenedor.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+});
+
+// Navigation "Home" link should clear filter
+const homeLink = document.querySelector('.nav-link[href="home.html"]');
+if (homeLink) {
+    homeLink.addEventListener('click', (e) => {
+        if (window.location.pathname.endsWith('home.html')) {
+            e.preventDefault();
+            brandCards.forEach(c => {
+                c.classList.remove('border-primary');
+                c.querySelector('span').classList.remove('text-primary');
+            });
+            LoadMovies();
+        }
+    });
+}
+
+// Ejecutar la carga inicial
 LoadMovies();
