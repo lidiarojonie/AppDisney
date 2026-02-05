@@ -1,0 +1,154 @@
+/* CSS for Profile Selection Screen (index.html) */
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #1a1d29;
+    color: #f9f9f9;
+    font-family: 'Spline Sans', sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.logo-container {
+    margin-bottom: 2rem;
+    width: 150px;
+    opacity: 0.8;
+}
+
+h1 {
+    font-size: 2rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    text-align: center;
+}
+
+p.subtitle {
+    font-size: 1.1rem;
+    color: #cacaca;
+    margin-bottom: 3rem;
+    text-align: center;
+}
+
+.profiles-container {
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.profile-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+    text-decoration: none;
+    color: inherit;
+}
+
+.profile-card:hover {
+    transform: scale(1.05);
+}
+
+.avatar-wrapper {
+    position: relative;
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 4px solid transparent;
+    /* Invisible border by default */
+    transition: border-color 0.2s ease;
+}
+
+.profile-card:hover .avatar-wrapper {
+    border-color: #f9f9f9;
+}
+
+.avatar-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Highlight the center one "Miguel" as in the image */
+.profile-card.active .avatar-wrapper {
+    border-color: #00d2f9;
+    /* Cyan highlight */
+    box-shadow: 0 0 20px rgba(0, 210, 249, 0.4);
+}
+
+.profile-name {
+    font-size: 1.1rem;
+    color: #cacaca;
+    font-weight: 500;
+    transition: color 0.2s;
+}
+
+.profile-card:hover .profile-name {
+    color: #fff;
+}
+
+.profile-card.active .profile-name {
+    color: #fff;
+}
+
+.edit-overlay {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.5);
+    width: 100%;
+    height: 100%;
+    display: none;
+    /* Just for visual matching if needed, but simplified for now */
+}
+
+.add-profile-btn {
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 4px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.2s;
+}
+
+.add-profile-btn:hover {
+    background-color: #f9f9f9;
+    border-color: #f9f9f9;
+}
+
+.add-profile-btn span {
+    font-size: 3rem;
+    color: #f9f9f9;
+}
+
+.add-profile-btn:hover span {
+    color: #1a1d29;
+}
+
+/* Simplified "edit" pencil icon simulation */
+.edit-icon {
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+    background: #f9f9f9;
+    color: #1a1d29;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+}

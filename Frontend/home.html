@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html class="dark" lang="es">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Streaming Home - Dark Red</title>
+    <link href="https://fonts.googleapis.com/css2?family=Spline+Sans:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+    <div class="relative flex flex-col w-full">
+        <header class="site-header">
+            <div class="header-left">
+                <a href="home.html" class="logo-link">
+                    <div class="logo-icon">
+                        <img src="Imagenes/logo.png" alt="Logo" class="w-full h-full object-contain">
+                    </div>
+                    <h2 class="logo-text">STREAM</h2>
+                </a>
+                <nav class="main-nav">
+                    <a class="nav-link active" href="home.html">Home</a>
+                    <a class="nav-link" href="allMovies/allMovies.html">Movies</a>
+                    <a class="nav-link" href="favorites/favorites.html">MyFavorites</a>
+                </nav>
+            </div>
+            <div class="header-right">
+                <div class="search-container">
+                    <span class="material-symbols-outlined search-icon">search</span>
+                    <input class="search-input" placeholder="Search..." type="text" />
+                </div>
+                <div class="notification-icon">
+                    <span class="material-symbols-outlined">notifications</span>
+                    <div class="notification-dot"></div>
+                </div>
+                <div class="user-dropdown-container">
+                    <div class="user-avatar"
+                        style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBcHDc-ey8kjvRGkxEDP3YvCJF539f_5sbUYgDYZsCjD-jaVeC37DBP3LjjfMBqzyzcVUltjOb1TSiCUvKrAg96V1_E4ETp3kqnTXgGmEnl2Pdh22QEqTWMom6vu6p686Z7OwlhynDD2oj5TIRpY84Xwe7zzQ9uQA-WSeQT3Gzp6dwjCbDuG9miTrh4zXWHMWsovQY8oFKDRVSU0RHbkiH23DtZM8eTLhMKyAMumQ5b84RvaPz_F6-tBVojX-P6lSaZC7r-m8wlMO54");'>
+                    </div>
+                    <div class="user-dropdown">
+                        <a href="profile/profile.html" class="dropdown-item">
+                            <span class="material-symbols-outlined">person</span>
+                            <span>Profile</span>
+                        </a>
+                        <a href="plans/plans.html" class="dropdown-item">
+                            <span class="material-symbols-outlined">subscriptions</span>
+                            <span>Subscription</span>
+                        </a>
+                        <a href="#" class="dropdown-item">
+                            <span class="material-symbols-outlined">settings</span>
+                            <span>Settings</span>
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a href="index.html" class="dropdown-item logout">
+                            <span class="material-symbols-outlined">logout</span>
+                            <span>Log Out</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <main class="main-content">
+            <section class="mb-10">
+                <div class="hero-card group">
+                    <div class="hero-bg"
+                        style='background-image: linear-gradient(to top, rgba(11, 13, 16, 0.95) 0%, rgba(11, 13, 16, 0.4) 40%, rgba(11, 13, 16, 0) 100%), url("https://lh3.googleusercontent.com/aida-public/AB6AXuCdrZamZ2-Tzj1lwrbkZwTvT4Xr4ZP394cEsBBelKnB5ktqdNmPXqiS5xeSi91O38x4VhTTLtc1KvOvfr_wCqolmRmBHSqC91_gv7XffK4iai2NQyPGkkkdpR98xfHiOLOKr9UEWUi0f6ilY5fzNAN_zTdzygEeLa5lPitn2IFhfPs8dCenr_1p0jQit2HhBrIq60EhMl5EZVp92xtoDURwSa2ff_DvM9CFbKeB7n-FSROrbLgqo8vd7WkXqzbGGpwLPQ5S8pMXNGKI");'>
+                        <div class="hero-content">
+                            <span class="badge-featured animate-slide-up delay-100">Featured</span>
+                            <h1 class="hero-title animate-slide-up delay-200">The Mandalorian</h1>
+                            <p class="hero-desc animate-slide-up delay-300">The travels of a lone bounty hunter in the
+                                outer reaches of the galaxy,
+                                far from the authority of the New Republic.</p>
+                            <div class="hero-actions animate-slide-up delay-400">
+                                <button class="btn btn-primary">
+                                    <span class="material-symbols-outlined">play_arrow</span><span>Play Now</span>
+                                </button>
+                                <a href="movies/mandalorian.html" class="btn btn-glass" style="text-decoration: none;">
+                                    <span class="material-symbols-outlined">info</span><span>More Info</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="brands-section">
+                <div class="brands-scroll">
+                    <div class="brand-card group">
+                        <span class="font-bold group-hover:text-primary">DISNEY</span>
+                    </div>
+                    <div class="brand-card group">
+                        <span class="font-bold group-hover:text-primary">PIXAR</span>
+                    </div>
+                    <div class="brand-card group">
+                        <span class="font-bold group-hover:text-primary">MARVEL</span>
+                    </div>
+                    <div class="brand-card group border-primary">
+                        <span class="text-primary font-bold">STAR WARS</span>
+                    </div>
+                    <div class="brand-card group">
+                        <span class="font-bold group-hover:text-primary">ADVENTURE</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Continue Watching Section -->
+            <div class="section-header">
+                <h2 class="section-title">Continue Watching</h2>
+            </div>
+            <div class="carousel-container" id="continue-watching-container">
+                <!-- Javascript will populate this -->
+            </div>
+
+            <!-- New Releases Section -->
+            <div class="section-header">
+                <h2 class="section-title">New Releases</h2>
+            </div>
+            <div class="carousel-container" id="new-releases-container">
+                <!-- Javascript will populate this -->
+            </div>
+
+            <div class="section-header">
+                <h2 class="section-title">Catalogue</h2>
+            </div>
+
+            <div class="movies-grid">
+                <!-- Movies from database will be rendered here -->
+
+            </div>
+        </main>
+
+        <footer class="site-footer">
+            <div class="footer-content">
+                <div class="logo-icon text-slate-400">
+                    <img src="Imagenes/logo.png" alt="Logo" class="w-full h-full object-contain grayscale opacity-50">
+                </div>
+                <div class="footer-links">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Help</a>
+                    <a href="#">About Us</a>
+                </div>
+                <p class="copyright">© 2026 Streaming Service. All rights reserved.</p>
+            </div>
+        </footer>
+    </div>
+    <script src="app.js"></script>
+</body>
+
+</html>

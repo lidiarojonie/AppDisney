@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html class="dark" lang="es">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>My Profile - Disney+</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Spline+Sans:wght@300;400;500;600;700;900&amp;display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="../styles.css" />
+    <link href="profile.css" rel="stylesheet" />
+</head>
+
+<body>
+    <div class="disney-gradient">
+        <!-- TopNavBar -->
+        <header class="site-header">
+            <div class="header-left">
+                <a href="../home.html" class="logo-link">
+                    <div class="logo-icon">
+                        <img src="../Imagenes/logo.png" alt="Logo" class="w-full h-full object-contain">
+                    </div>
+                    <h2 class="logo-text">STREAM</h2>
+                </a>
+                <nav class="main-nav">
+                    <a href="../home.html" class="nav-link">Home</a>
+                    <a href="../allMovies/allMovies.html" class="nav-link">Movies</a>
+                    <a href="../favorites/favorites.html" class="nav-link">MyFavorites</a>
+                </nav>
+            </div>
+            <div class="header-right">
+                <div class="search-container">
+                    <span class="material-symbols-outlined search-icon">search</span>
+                    <input class="search-input" placeholder="Search..." type="text" />
+                </div>
+                <div class="notification-icon">
+                    <span class="material-symbols-outlined">notifications</span>
+                    <div class="notification-dot"></div>
+                </div>
+                <div class="user-dropdown-container">
+                    <div class="user-avatar"
+                        style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBcHDc-ey8kjvRGkxEDP3YvCJF539f_5sbUYgDYZsCjD-jaVeC37DBP3LjjfMBqzyzcVUltjOb1TSiCUvKrAg96V1_E4ETp3kqnTXgGmEnl2Pdh22QEqTWMom6vu6p686Z7OwlhynDD2oj5TIRpY84Xwe7zzQ9uQA-WSeQT3Gzp6dwjCbDuG9miTrh4zXWHMWsovQY8oFKDRVSU0RHbkiH23DtZM8eTLhMKyAMumQ5b84RvaPz_F6-tBVojX-P6lSaZC7r-m8wlMO54");'>
+                    </div>
+                    <div class="user-dropdown">
+                        <a href="profile.html" class="dropdown-item active">
+                            <span class="material-symbols-outlined">person</span>
+                            <span>Profile</span>
+                        </a>
+                        <a href="../plans/plans.html" class="dropdown-item">
+                            <span class="material-symbols-outlined">subscriptions</span>
+                            <span>Subscription</span>
+                        </a>
+                        <a href="#" class="dropdown-item">
+                            <span class="material-symbols-outlined">settings</span>
+                            <span>Settings</span>
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a href="../index.html" class="dropdown-item logout">
+                            <span class="material-symbols-outlined">logout</span>
+                            <span>Log Out</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <main class="layout-container">
+            <div class="content-wrapper">
+                <!-- PageHeading -->
+                <div class="page-header">
+                    <h1 class="page-title">My Profile</h1>
+                    <p class="page-subtitle">Manage your account details and preferences.</p>
+                </div>
+
+                <!-- Profile Content -->
+                <div class="profile-container">
+                    <div class="profile-card">
+                        <div class="profile-header">
+                            <div class="profile-avatar-large"
+                                style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBcHDc-ey8kjvRGkxEDP3YvCJF539f_5sbUYgDYZsCjD-jaVeC37DBP3LjjfMBqzyzcVUltjOb1TSiCUvKrAg96V1_E4ETp3kqnTXgGmEnl2Pdh22QEqTWMom6vu6p686Z7OwlhynDD2oj5TIRpY84Xwe7zzQ9uQA-WSeQT3Gzp6dwjCbDuG9miTrh4zXWHMWsovQY8oFKDRVSU0RHbkiH23DtZM8eTLhMKyAMumQ5b84RvaPz_F6-tBVojX-P6lSaZC7r-m8wlMO54");'>
+                                <div class="edit-avatar-btn">
+                                    <span class="material-symbols-outlined">edit</span>
+                                </div>
+                            </div>
+                            <h2 class="profile-name">Ivan Developer</h2>
+                            <p class="profile-email">ivan@example.com</p>
+                            <span class="badge-plan">Premium Plan</span>
+                        </div>
+
+                        <div class="profile-details-grid">
+                            <div class="detail-item">
+                                <span class="detail-label">Subscription</span>
+                                <span class="detail-value">Disney+ Premium (Annual)</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Next Billing Date</span>
+                                <span class="detail-value">February 25, 2027</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Payment Method</span>
+                                <span class="detail-value">•••• 4242</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Member Since</span>
+                                <span class="detail-value">2023</span>
+                            </div>
+                        </div>
+
+                        <div class="profile-actions">
+                            <button class="btn btn-primary">Edit Profile</button>
+                            <button class="btn btn-dark">Manage Subscription</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+
+        <!-- Footer area -->
+        <footer class="site-footer">
+            <div class="footer-content">
+                <div class="logo-icon text-slate-400">
+                    <img src="../Imagenes/logo.png" alt="Logo"
+                        class="w-full h-full object-contain grayscale opacity-50">
+                </div>
+                <div class="footer-links">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Help</a>
+                    <a href="#">About Us</a>
+                </div>
+                <p class="copyright">© 2026 Streaming Service. All rights reserved.</p>
+            </div>
+        </footer>
+        <!-- Background decorative elements -->
+        <div class="bg-decorations">
+            <div class="bg-blob-1"></div>
+            <div class="bg-blob-2"></div>
+        </div>
+    </div>
+    <script src="profile.js"></script>
+</body>
+
+</html>

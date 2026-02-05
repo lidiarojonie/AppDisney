@@ -246,33 +246,39 @@ html.dark .logo-link {
 
 .search-icon {
     position: absolute;
-    left: 0.75rem;
+    left: 1rem;
     top: 50%;
     transform: translateY(-50%);
     color: var(--color-text-muted);
     font-family: 'Material Symbols Outlined';
-    font-size: 18px;
+    font-size: 20px;
     pointer-events: none;
+    z-index: 10;
 }
 
 .search-input {
     width: 100%;
-    border-radius: 0.5rem;
-    font-size: 0.875rem;
-    background-color: var(--color-bg-card);
-    /* Fallback */
-    border: none;
-    padding: 0.625rem 1rem 0.625rem 2.5rem;
-    color: inherit;
+    border-radius: 2rem;
+    /* More rounded */
+    font-size: 0.95rem;
+    background-color: rgba(255, 255, 255, 0.1);
+    /* Glassy look */
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 0.75rem 1rem 0.75rem 3.5rem;
+    /* adjusted padding to prevent icon overlap */
+    color: var(--color-white);
     outline: none;
+    transition: all 0.3s ease;
 }
 
 html.dark .search-input {
-    background-color: #232f48;
+    background-color: rgba(255, 255, 255, 0.08);
 }
 
 .search-input:focus {
-    box-shadow: 0 0 0 2px var(--color-primary);
+    background-color: rgba(255, 255, 255, 0.15);
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 4px rgba(229, 9, 20, 0.1);
 }
 
 .notification-icon {
@@ -392,7 +398,7 @@ html.dark .search-input {
 
 @media (min-width: 768px) {
     .main-content {
-        padding: 1.5rem 2.5rem;
+        padding: 2rem 3rem;
     }
 }
 
@@ -602,11 +608,69 @@ html.dark .search-input {
     text-decoration: underline;
 }
 
+/* Carousel */
+.carousel-container {
+    display: flex;
+    overflow-x: auto;
+    gap: 2rem;
+    padding: 2.5rem 2rem;
+    /* Added padding to prevent hover clipping */
+    margin-bottom: 2rem;
+    scroll-behavior: smooth;
+    -ms-overflow-style: none;
+    /* IE and Edge */
+    scrollbar-width: none;
+    /* Firefox */
+}
+
+.play-overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 4rem;
+    height: 4rem;
+    background-color: rgba(30, 41, 59, 0.7);
+    backdrop-filter: blur(4px);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid rgba(255, 255, 255, 0.8);
+    opacity: 0.9;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 20;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+}
+
+.movie-card:hover .play-overlay {
+    background-color: var(--color-primary);
+    border-color: var(--color-primary);
+    transform: translate(-50%, -50%) scale(1.1);
+    box-shadow: 0 0 20px rgba(229, 9, 20, 0.5);
+}
+
+.play-overlay span {
+    font-size: 2.5rem;
+    color: var(--color-white);
+}
+
+.carousel-container::-webkit-scrollbar {
+    display: none;
+}
+
+.carousel-container .movie-card {
+    min-width: 200px;
+    max-width: 200px;
+    flex-shrink: 0;
+}
+
 .movies-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 1.5rem;
-    padding-bottom: 5rem;
+    gap: 2rem;
+    padding: 2.5rem 2rem 5rem 2rem;
+    /* Added padding to match carousel and prevent clipping */
     margin-bottom: 3rem;
 }
 
@@ -646,6 +710,21 @@ html.dark .search-input {
     transition: opacity 0.3s;
 }
 
+.movie-info-static {
+    padding-top: 0.75rem;
+    text-align: center;
+}
+
+.movie-info-static span {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--color-white);
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
 /* Movie Popover */
 .movie-popover {
     position: absolute;
@@ -664,8 +743,29 @@ html.dark .search-input {
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     pointer-events: none;
     z-index: 100;
+    z-index: 100;
     left: 50%;
     top: 0;
+}
+
+/* Fix for left/right edge clipping */
+.movie-card:first-child .movie-popover {
+    left: 0;
+    transform: scale(0.95);
+}
+
+.movie-card:first-child:hover .movie-popover {
+    transform: scale(1.1) translateY(-10px);
+}
+
+.movie-card:last-child .movie-popover {
+    left: auto;
+    right: 0;
+    transform: scale(0.95);
+}
+
+.movie-card:last-child:hover .movie-popover {
+    transform: scale(1.1) translateY(-10px);
 }
 
 .movie-card:hover .movie-popover {
@@ -870,4 +970,79 @@ html.dark .site-footer {
 
 .pb-20 {
     padding-bottom: 5rem;
+}
+
+/* --- Animations --- */
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideUpFade {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes popIn {
+    0% {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+
+    70% {
+        transform: scale(1.05);
+    }
+
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.animate-fade-in {
+    animation: fadeIn 0.8s ease-out forwards;
+}
+
+.animate-slide-up {
+    animation: slideUpFade 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    opacity: 0;
+    /* Start hidden */
+}
+
+.animate-pop-in {
+    animation: popIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+    opacity: 0;
+}
+
+.delay-100 {
+    animation-delay: 100ms;
+}
+
+.delay-200 {
+    animation-delay: 200ms;
+}
+
+.delay-300 {
+    animation-delay: 300ms;
+}
+
+.delay-400 {
+    animation-delay: 400ms;
+}
+
+.delay-500 {
+    animation-delay: 500ms;
 }
