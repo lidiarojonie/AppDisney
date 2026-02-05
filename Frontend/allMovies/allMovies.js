@@ -181,7 +181,7 @@ async function LoadMovies() {
         let htmlTemplate = "";
 
         filtrados.forEach((peli) => {
-            // 1. Limpieza de imagen: extraemos solo "Encanto.jpg" de la ruta de la BD
+            // Extract filename from database path and construct local path
             const nombreArchivo = peli.photo_url ? peli.photo_url.split('/').pop() : "";
             const rutaImagenLocal = `../MoviesImagenes/${nombreArchivo}`;
 

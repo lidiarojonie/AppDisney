@@ -156,6 +156,7 @@ async function LoadMovies(genreId = null) {
         let htmlTemplate = "";
 
         filtrados.forEach((peli) => {
+            // Extract filename from database path and construct local path
             const nombreArchivo = peli.photo_url ? peli.photo_url.split('/').pop() : "";
             const rutaImagenLocal = `MoviesImagenes/${nombreArchivo}`;
 
