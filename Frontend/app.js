@@ -151,12 +151,38 @@ async function LoadMovies() {
             </div>
           `;
         });
-    
+
         $contenedor.innerHTML = htmlTemplate;
       } catch (error) {
         console.error("Error al cargar:", error);
         $contenedor.innerHTML = "<p>Error al conectar con la base de datos.</p>";
       }
     }
-    
+
     LoadMovies();
+
+    async function fetchMovies(){
+        try{
+            const responde = await fetch(API_URL);
+
+            const data = await response.json();
+
+            let htmlContent = '';
+
+            data.movies.forEach(item => {
+                // 
+                htmlContent += `
+                    <div class = "movie-card">
+                        <div class="movie-title">${item.movie}</div>
+                        <div class="movie-img">
+                            <img src="${item.url}" alt="${item.movie}">
+                            </div>
+                    </div>    
+                `;
+            })
+        }
+        catch{
+            
+        }
+    }
+    
