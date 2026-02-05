@@ -120,6 +120,31 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    // --- Filter Dropdown Logic ---
+    const filterBtn = document.getElementById('filterBtn');
+    const filterDropdown = document.getElementById('filterDropdown');
+
+    if (filterBtn && filterDropdown) {
+        filterBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            filterDropdown.classList.toggle('active');
+        });
+
+        document.addEventListener('click', (e) => {
+            if (!filterDropdown.contains(e.target) && !filterBtn.contains(e.target)) {
+                filterDropdown.classList.remove('active');
+            }
+        });
+
+        // Close dropdown when an item is selected
+        const dropdownItems = filterDropdown.querySelectorAll('.dropdown-item');
+        dropdownItems.forEach(item => {
+            item.addEventListener('click', () => {
+                filterDropdown.classList.remove('active');
+            });
+        });
+    }
+
     // Initial render
     applyFilter();
 });
