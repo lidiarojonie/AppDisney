@@ -38,13 +38,18 @@ document.addEventListener('DOMContentLoaded', () => {
             card.className = 'poster-card';
 
             // Handle potentially missing properties
-            const imageSrc = movie.image || '';
-            const rating = movie.rating || '';
-            const duration = movie.duration || '';
+            let photoUrl = movie.photo_url || '';
+            if (photoUrl.startsWith("Frontend/")) {
+                photoUrl = photoUrl.replace("Frontend/", "");
+            }
+            // Since favorites.html is in favorites/, we need to go up one level
+            photoUrl = "../" + photoUrl;
+
+            const duration = movie.duration_min ? movie.duration_min + 'm' : '';
 
             card.innerHTML = `
                 <div class="poster-image-container">
-                    <img class="poster-img" src="${imageSrc}" alt="${movie.title} poster" />
+                    <img class="poster-img" src="${photoUrl}" alt="${movie.title} poster" />
                     <div class="favorite-btn" data-title="${movie.title}">
                         <span class="material-symbols-outlined text-lg-icon"
                             style="font-variation-settings: 'FILL' 1">favorite</span>
@@ -54,7 +59,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             <span class="material-symbols-outlined">play_arrow</span> Play
                         </button>
                         <div class="meta-info">
-                            <span class="rating-badge">${rating}</span>
+                            <span class="rating-badge">98% Match</span>
                             <span>${duration}</span>
                         </div>
                     </div>
@@ -94,9 +99,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
         let filtered = validFavs;
         if (currentFilter === 'Movies') {
-            filtered = validFavs.filter(f => f.type === 'movie');
+            filtered = validFavs.filter(f => f.is_series === 1);
         } else if (currentFilter === 'Series') {
-            filtered = validFavs.filter(f => f.type === 'series');
+            filtered = validFavs.filter(f => f.is_series === 0);
         }
         // "Disney+ Originals" - we don't store "original" data yet, so ignoring or using heuristic if available
         // For now, treats as All or TODO
@@ -109,14 +114,4 @@ document.addEventListener('DOMContentLoaded', () => {
         btn.addEventListener('click', () => {
             // Update UI
             filterButtons.forEach(b => b.classList.replace('active', 'inactive'));
-            btn.classList.replace('inactive', 'active');
-
-            // Update filter
-            currentFilter = btn.querySelector('p').textContent;
-            applyFilter();
-        });
-    });
-
-    // Initial Render
-    applyFilter();
-});
+            btn.c

@@ -22,29 +22,16 @@ document.addEventListener('DOMContentLoaded', () => {
     // 2. Select all favorite buttons
     const favButtons = document.querySelectorAll('.fav-btn');
 
-    // Helper: Extract movie data from card
+    // Helper: Extract movie data from button attributes
     const getMovieData = (btn) => {
-        const card = btn.closest('.movie-card');
-        if (!card) return null;
-
-        const title = btn.dataset.title;
-        // Extract content from style="background-image: url('...')"
-        const style = card.querySelector('.poster-image').getAttribute('style');
-        const imageMatch = style.match(/url\("?(.+?)"?\)/);
-        const image = imageMatch ? imageMatch[1] : '';
-
-        const rating = card.querySelector('.rating-badge')?.textContent.trim() || '';
-
-        // Duration is usually the last span in meta-row, or we can grab all text and parse
-        // In this specific HTML structure, it's the last span
-        const metaSpans = card.querySelectorAll('.meta-row span');
-        const duration = metaSpans.length > 0 ? metaSpans[metaSpans.length - 1].textContent.trim() : '';
-
-        // Determine type based on duration (simple heuristic for now)
-        // If duration contains "Season", it's a series, else movie
-        const type = duration.includes('Season') ? 'series' : 'movie';
-
-        return { title, image, rating, duration, type };
+        return {
+            title: btn.dataset.title,
+            photo_url: btn.dataset.photo_url,
+            release_year: btn.dataset.release_year,
+            duration_min: btn.dataset.duration_min,
+            summary: btn.dataset.summary,
+            is_series: parseInt(btn.dataset.is_series)
+        };
     };
 
     // 3. Define the toggle function
@@ -102,32 +89,56 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     };
 
-    // 6. Attach click listeners and set initial state
-    favButtons.forEach(btn => {
-        const title = btn.dataset.title;
-        // Check if favorite exists by title
-        // Handle migration from old string-only storage if needed, but let's assume fresh start or overwrite
-        // If favorites has strings, this might crash. Let's filter out strings just in case or handle it.
-        // For now, let's assume we reset or it's fine.
-
-        let isFav = false;
-        if (favorites.length > 0) {
-            // Handle potential legacy string data
-            if (typeof favorites[0] === 'string') {
-                isFav = favorites.includes(title);
-            } else {
-                isFav = favorites.some(f => f.title === title);
-            }
-        }
-
-        if (isFav) {
-            updateButtonState(btn, true);
-        }
-
-        btn.addEventListener('click', (e) => {
-            e.stopPropagation(); // Prevent triggering card click
+    // 6. Use event delegation for favorites
+    document.addEventListener('click', (e) => {
+        const btn = e.target.closest('.fav-btn');
+        if (btn) {
+            e.stopPropagation();
             e.preventDefault();
             toggleFavorite(btn);
-        });
+        }
     });
+
+    // Initial sync of buttons (rarely needed for dynamic grid, but good to have)
+    const initButtons = () => {
+        const btns = document.querySelectorAll('.fav-btn');
+        btns.forEach(btn => {
+            const title = btn.dataset.title;
+            const isFav = favorites.some(f => f.title === title);
+            updateButtonState(btn, isFav);
+        });
+    };
 });
+
+const API =
+    "http://localhost:3000/api/movies";
+const $contenedor = document.querySelector(".movies-grid");
+
+async function LoadMovies() {
+    try {
+        const response = await fetch(API);
+        const data = await response.json();
+        const allItems = data.movies;
+
+        const path = window.location.pathname;
+
+        const esHome = path.endsWith("index.html") || path === "/" || path === "";
+        const esPaginaSeries = path.includes("series.html");
+        const esPaginaPeliculas = path.includes("peliculas.html");
+
+        const filtrados = allItems.filter((item) => {
+            if (esHome) {
+                return true;
+            } else if (esPaginaSeries) {
+                return item.is_series === 0;
+            } else if (esPaginaPeliculas) {
+                return item.is_series === 1;
+            }
+            return true;
+        });
+
+        const isSubDir = path.includes("/allMovies/") || path.includes("/favorites/") || path.includes("/plans/") || path.includes("/session/");
+        const imgPrefix = isSubDir ? "../" : "";
+
+        filtrados.forEach((peli) => {
+            // Cl
