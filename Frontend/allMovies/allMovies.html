@@ -17,14 +17,14 @@
     <div class="relative flex flex-col w-full">
         <header class="site-header">
             <div class="header-left">
-                <a href="../index.html" class="logo-link">
+                <a href="../home.html" class="logo-link">
                     <div class="logo-icon">
                         <img src="../Imagenes/logo.png" alt="Logo" class="w-full h-full object-contain">
                     </div>
                     <h2 class="logo-text">STREAM</h2>
                 </a>
                 <nav class="main-nav">
-                    <a class="nav-link" href="../index.html">Home</a>
+                    <a class="nav-link" href="../home.html">Home</a>
                     <a class="nav-link active" href="allMovies.html">Movies</a>
                     <a class="nav-link" href="../favorites/favorites.html">MyFavorites</a>
                 </nav>
@@ -68,11 +68,17 @@
         <main class="main-content">
             <div class="section-header">
                 <h2 class="section-title">All Movies</h2>
-                <div class="category-filters">
-                    <button class="cat-pill active">All</button>
-                    <button class="cat-pill">Action</button>
-                    <button class="cat-pill">Animation</button>
-                    <button class="cat-pill">Sci-Fi</button>
+                <div class="controls-group">
+                    <label class="all-movies-search-bar">
+                        <div class="search-icon-wrapper">
+                            <span class="material-symbols-outlined text-sm-icon">search</span>
+                        </div>
+                        <input class="all-movies-search-input" placeholder="Search within movies" value="" />
+                    </label>
+                    <button class="filter-btn">
+                        <span class="material-symbols-outlined text-xs-icon">filter_list</span>
+                        Filter
+                    </button>
                 </div>
             </div>
 

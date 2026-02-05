@@ -1,18 +1,126 @@
+:root {
+    --color-primary: #e50914;
+    --color-primary-hover: #b20710;
+    --color-accent: #6C5CE7;
+    --color-bg-light: #f6f6f8;
+    --color-bg-dark: #0b1015;
+    --color-bg-sec: #0b1015;
+    --color-surface: #161b22;
+    --color-border: #30363d;
+    --color-text-high: #ffffff;
+    --color-text-low: #94a3b8;
+    --font-display: 'Spline Sans', sans-serif;
+}
+
+/* Base resets for buttons and inputs */
+button {
+    border: none;
+    background: none;
+    font-family: inherit;
+    padding: 0;
+    cursor: pointer;
+}
+
+input {
+    outline: none;
+    font-family: inherit;
+}
+
+/* Icon utilities from favorites.css */
+.text-xs-icon {
+    font-size: 18px;
+}
+
+.text-sm-icon {
+    font-size: 20px;
+}
+
 /* allMovies specific styles */
 
 .section-header {
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    gap: 1.5rem;
     margin-bottom: 2rem;
+    padding: 0 1rem;
 }
 
 @media (min-width: 768px) {
     .section-header {
         flex-direction: row;
-        align-items: center;
+        align-items: flex-end;
         justify-content: space-between;
     }
+}
+
+.controls-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    min-width: 320px;
+}
+
+@media (min-width: 640px) {
+    .controls-group {
+        flex-direction: row;
+    }
+}
+
+.all-movies-search-bar {
+    display: flex;
+    flex: 1;
+    height: 2.75rem;
+    align-items: center;
+    border-radius: 0.5rem;
+    border: 1px solid var(--color-surface);
+    overflow: hidden;
+    transition: all 0.2s;
+    background-color: var(--color-bg-sec);
+}
+
+.all-movies-search-bar:focus-within {
+    border-color: var(--color-primary);
+}
+
+.search-icon-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-left: 1rem;
+    color: var(--color-text-low);
+}
+
+.all-movies-search-input {
+    flex: 1;
+    width: 100%;
+    border: none;
+    background-color: transparent;
+    color: var(--color-text-high);
+    padding: 0 0.75rem;
+    font-size: 0.875rem;
+}
+
+.all-movies-search-input::placeholder {
+    color: var(--color-text-low);
+}
+
+.filter-btn {
+    display: flex;
+    height: 2.75rem;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    border-radius: 0.5rem;
+    background-color: var(--color-surface);
+    padding: 0 1rem;
+    transition: all 0.2s;
+    color: var(--color-text-high);
+    font-weight: 500;
+    font-size: 0.875rem;
+}
+
+.filter-btn:hover {
+    filter: brightness(1.25);
 }
 
 .category-filters {
