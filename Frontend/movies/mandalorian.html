@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Spline+Sans:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="../styles.css" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#e50914",
+                        "background-dark": "#0b1015",
+                        "surface-dark": "#161b22",
+                    },
+                    fontFamily: {
+                        "sans": ["Spline Sans", "sans-serif"]
+                    },
+                    borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer base {
+            body {
+                @apply bg-background-dark text-white font-sans overflow-x-hidden;
+            }
+        }
+        .text-shadow-premium {
+            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+        }
+        .btn-play-gradient {
+            background: linear-gradient(180deg, #f9f9f9 0%, #d1d1d1 100%);
+        }
+    </style>
+    <title>The Mandalorian | Disney+</title>
+</head>
+
+<body class="bg-background-dark text-white selection:bg-primary/30">
+    <div class="relative min-h-screen w-full flex flex-col">
+        <div class="fixed inset-0 z-0 overflow-hidden">
+            <div
+                class="absolute inset-0 bg-gradient-to-r from-background-dark via-background-dark/70 to-transparent z-10">
+            </div>
+            <div
+                class="absolute inset-0 bg-gradient-to-t from-background-dark via-transparent to-background-dark/20 z-10">
+            </div>
+            <img alt="The Mandalorian Background" class="w-full h-full object-cover scale-110"
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuCdrZamZ2-Tzj1lwrbkZwTvT4Xr4ZP394cEsBBelKnB5ktqdNmPXqiS5xeSi91O38x4VhTTLtc1KvOvfr_wCqolmRmBHSqC91_gv7XffK4iai2NQyPGkkkdpR98xfHiOLOKr9UEWUi0f6ilY5fzNAN_zTdzygEeLa5lPitn2IFhfPs8dCenr_1p0jQit2HhBrIq60EhMl5EZVp92xtoDURwSa2ff_DvM9CFbKeB7n-FSROrbLgqo8vd7WkXqzbGGpwLPQ5S8pMXNGKI" />
+        </div>
+
+        <!-- Standard Header adapted for this page -->
+        <header class="site-header relative z-50 !bg-transparent !border-none !backdrop-blur-none">
+            <div class="header-left">
+                <a href="../home.html" class="logo-link">
+                    <div class="logo-icon">
+                        <img src="../Imagenes/logo.png" alt="Logo" class="w-full h-full object-contain">
+                    </div>
+                    <h2 class="logo-text">STREAM</h2>
+                </a>
+                <nav class="main-nav">
+                    <a class="nav-link" href="../home.html">Home</a>
+                    <a class="nav-link" href="../allMovies/allMovies.html">Movies</a>
+                    <a class="nav-link" href="../favorites/favorites.html">MyFavorites</a>
+                </nav>
+            </div>
+            <div class="header-right">
+                <div class="search-container">
+                    <span class="material-symbols-outlined search-icon">search</span>
+                    <input class="search-input" placeholder="Search..." type="text" />
+                </div>
+                <div class="notification-icon">
+                    <span class="material-symbols-outlined">notifications</span>
+                    <div class="notification-dot"></div>
+                </div>
+                <div class="user-dropdown-container">
+                    <div class="user-avatar"
+                        style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBcHDc-ey8kjvRGkxEDP3YvCJF539f_5sbUYgDYZsCjD-jaVeC37DBP3LjjfMBqzyzcVUltjOb1TSiCUvKrAg96V1_E4ETp3kqnTXgGmEnl2Pdh22QEqTWMom6vu6p686Z7OwlhynDD2oj5TIRpY84Xwe7zzQ9uQA-WSeQT3Gzp6dwjCbDuG9miTrh4zXWHMWsovQY8oFKDRVSU0RHbkiH23DtZM8eTLhMKyAMumQ5b84RvaPz_F6-tBVojX-P6lSaZC7r-m8wlMO54");'>
+                    </div>
+                    <div class="user-dropdown">
+                        <a href="../profile/profile.html" class="dropdown-item">
+                            <span class="material-symbols-outlined">person</span>
+                            <span>Profile</span>
+                        </a>
+                        <a href="../plans/plans.html" class="dropdown-item">
+                            <span class="material-symbols-outlined">subscriptions</span>
+                            <span>Subscription</span>
+                        </a>
+                        <a href="#" class="dropdown-item">
+                            <span class="material-symbols-outlined">settings</span>
+                            <span>Settings</span>
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a href="../index.html" class="dropdown-item logout">
+                            <span class="material-symbols-outlined">logout</span>
+                            <span>Log Out</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <main class="relative z-20 flex-1 flex flex-col px-12 pt-8">
+            <nav class="flex items-center gap-2 text-xs font-bold tracking-[0.1em] text-white/50 uppercase mb-8">
+                <a class="hover:text-white transition-colors" href="../home.html">Home</a>
+                <span class="material-symbols-outlined text-[14px]">chevron_right</span>
+                <a class="hover:text-white transition-colors" href="../allMovies/allMovies.html">Movies</a>
+                <span class="material-symbols-outlined text-[14px]">chevron_right</span>
+                <span class="text-white/90">The Mandalorian</span>
+            </nav>
+            <div class="max-w-4xl">
+                <div class="mb-8">
+                    <div class="w-full max-w-xl">
+                        <h1
+                            class="text-7xl font-black italic tracking-tighter uppercase leading-[0.85] text-shadow-premium animate-slide-up delay-100">
+                            THE<br />
+                            <span class="text-white/95">MANDALORIAN</span>
+                        </h1>
+                    </div>
+                </div>
+                <div class="flex flex-wrap items-center gap-6 text-sm font-semibold mb-8 animate-slide-up delay-200">
+                    <div class="flex items-center gap-3 text-white/90">
+                        <span
+                            class="bg-white/10 border border-white/20 px-2 py-0.5 rounded-sm text-xs font-bold">TV-14</span>
+                        <span>2019</span>
+                        <span class="w-1 h-1 rounded-full bg-white/40"></span>
+                        <span>3 Seasons</span>
+                        <span class="w-1 h-1 rounded-full bg-white/40"></span>
+                        <span class="text-white/70">Sci-Fi, Action, Adventure</span>
+                    </div>
+                    <div class="h-4 w-[1px] bg-white/20 hidden sm:block"></div>
+                    <div class="flex items-center gap-4">
+                        <div class="flex items-center gap-1.5">
+                            <span class="text-white font-bold">93%</span>
+                        </div>
+                        <div class="flex items-center gap-1.5">
+                            <div
+                                class="bg-[#f5c518] text-black px-1 py-0.5 rounded-sm text-[10px] font-black leading-none">
+                                IMDb</div>
+                            <span class="text-white font-bold">8.7</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex flex-wrap items-center gap-4 mb-10 animate-slide-up delay-300">
+                    <button
+                        class="btn-play-gradient text-black px-10 py-4 rounded-md flex items-center gap-3 font-extrabold hover:scale-105 transition-all shadow-xl shadow-black/40 tracking-[2px]">
+                        <span class="material-symbols-outlined fill-1 text-[28px]">play_arrow</span>
+                        RESUME
+                    </button>
+                    <button
+                        class="bg-black/40 backdrop-blur-md border border-white/30 text-white px-10 py-4 rounded-md flex items-center gap-3 font-extrabold hover:bg-white/10 hover:border-white/60 transition-all tracking-[2px]">
+                        TRAILER
+                    </button>
+                    <div class="flex items-center gap-3 ml-2">
+                        <button
+                            class="w-12 h-12 rounded-full border border-white/40 bg-black/40 backdrop-blur-md flex items-center justify-center hover:bg-white/10 hover:border-white transition-all group"
+                            title="Add to Watchlist">
+                            <span class="material-symbols-outlined">add</span>
+                        </button>
+                        <button
+                            class="w-12 h-12 rounded-full border border-white/40 bg-black/40 backdrop-blur-md flex items-center justify-center hover:bg-white/10 hover:border-white transition-all group"
+                            title="Watch Party">
+                            <span class="material-symbols-outlined">group</span>
+                        </button>
+                        <button
+                            class="w-12 h-12 rounded-full border border-white/40 bg-black/40 backdrop-blur-md flex items-center justify-center hover:bg-white/10 hover:border-white transition-all group"
+                            title="Download">
+                            <span class="material-symbols-outlined">download</span>
+                        </button>
+                    </div>
+                </div>
+                <p
+                    class="text-xl leading-relaxed text-white/80 max-w-3xl mb-12 text-shadow-premium font-medium animate-slide-up delay-400">
+                    The travels of a lone bounty hunter in the outer reaches of the galaxy, far from the authority of
+                    the New Republic. After the stories of Jango and Boba Fett, another warrior emerges in the Star Wars
+                    universe.
+                </p>
+            </div>
+
+            <div class="mt-8 border-b border-white/10">
+                <div class="flex gap-10">
+                    <button
+                        class="pb-4 text-sm font-bold tracking-[2px] border-b-2 border-white text-white">EPISODES</button>
+                    <button
+                        class="pb-4 text-sm font-bold tracking-[2px] border-b-2 border-transparent text-white/50 hover:text-white transition-colors">SUGGESTED</button>
+                    <button
+                        class="pb-4 text-sm font-bold tracking-[2px] border-b-2 border-transparent text-white/50 hover:text-white transition-colors">DETAILS</button>
+                </div>
+            </div>
+            <section class="py-10">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div
+                        class="group relative cursor-pointer overflow-hidden rounded-lg transition-all duration-300 hover:scale-105 hover:shadow-2xl border-2 border-transparent hover:border-white/80 bg-surface-dark">
+                        <div class="aspect-video bg-gray-800 flex items-center justify-center">
+                            <img src="../MoviesImagenes/StarWars.jpg" alt="Episode 1"
+                                class="w-full h-full object-cover opacity-60 group-hover:opacity-100 transition-opacity">
+                        </div>
+                        <div class="p-4">
+                            <h4 class="text-sm font-bold mb-1">Chapter 1: The Mandalorian</h4>
+                            <p class="text-xs text-white/50">40m</p>
+                        </div>
+                    </div>
+                    <div
+                        class="group relative cursor-pointer overflow-hidden rounded-lg transition-all duration-300 hover:scale-105 hover:shadow-2xl border-2 border-transparent hover:border-white/80 bg-surface-dark">
+                        <div class="aspect-video bg-gray-800 flex items-center justify-center">
+                            <img src="../MoviesImagenes/StarWars.jpg" alt="Episode 2"
+                                class="w-full h-full object-cover opacity-60 group-hover:opacity-100 transition-opacity">
+                        </div>
+                        <div class="p-4">
+                            <h4 class="text-sm font-bold mb-1">Chapter 2: The Child</h4>
+                            <p class="text-xs text-white/50">32m</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="pb-16 pt-4">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-16 text-white/70">
+                    <div>
+                        <h4 class="text-white font-bold mb-4 tracking-widest text-xs">SPECIFICATIONS</h4>
+                        <div class="flex flex-wrap gap-4">
+                            <div
+                                class="flex flex-col items-center gap-1 border border-white/10 rounded px-4 py-2 bg-white/5">
+                                <span class="text-[10px] font-black">VIDEO</span>
+                                <span class="text-xs font-bold text-white">4K ULTRA HD</span>
+                            </div>
+                            <div
+                                class="flex flex-col items-center gap-1 border border-white/10 rounded px-4 py-2 bg-white/5">
+                                <span class="text-[10px] font-black">HDR</span>
+                                <span class="text-xs font-bold text-white">HDR10 / VISION</span>
+                            </div>
+                            <div
+                                class="flex flex-col items-center gap-1 border border-white/10 rounded px-4 py-2 bg-white/5">
+                                <span class="text-[10px] font-black">AUDIO</span>
+                                <span class="text-xs font-bold text-white">DOLBY ATMOS</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <h4 class="text-white font-bold mb-4 tracking-widest text-xs">CAST & CREW</h4>
+                        <div class="grid grid-cols-2 gap-x-8 gap-y-2 text-sm">
+                            <div class="flex justify-between border-b border-white/5 pb-2"><span class="opacity-60">The
+                                    Mandalorian</span><span class="text-white">Pedro Pascal</span></div>
+                            <div class="flex justify-between border-b border-white/5 pb-2"><span
+                                    class="opacity-60">Greef
+                                    Karga</span><span class="text-white">Carl Weathers</span></div>
+                            <div class="flex justify-between border-b border-white/5 pb-2"><span
+                                    class="opacity-60">Creator</span><span class="text-white">Jon Favreau</span></div>
+                            <div class="flex justify-between border-b border-white/5 pb-2"><span
+                                    class="opacity-60">Music</span><span class="text-white">Ludwig Göransson</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer class="site-footer">
+            <div class="footer-content">
+                <div class="logo-icon text-slate-400">
+                    <img src="../Imagenes/logo.png" alt="Logo"
+                        class="w-full h-full object-contain grayscale opacity-50">
+                </div>
+                <div class="footer-links">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Help</a>
+                    <a href="#">About Us</a>
+                </div>
+                <p class="copyright">© 2026 Streaming Service. All rights reserved.</p>
+            </div>
+        </footer>
+        <!-- Adding app.js mainly for dropdown interaction if needed, though this page is mostly static -->
+        <script src="../app.js"></script>
+    </div>
+</body>
+
+</html>

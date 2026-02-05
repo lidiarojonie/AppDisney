@@ -93,7 +93,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 5. Sync all buttons with the same title
     const syncAllButtons = (title, isFavorite) => {
-        favButtons.forEach(btn => {
+        const currentButtons = document.querySelectorAll('.fav-btn');
+        currentButtons.forEach(btn => {
             if (btn.dataset.title === title) {
                 updateButtonState(btn, isFavorite);
             }
@@ -124,6 +125,8 @@ document.addEventListener('DOMContentLoaded', () => {
 const API =
     "https://legendary-telegram-pjqv499g9jj5279wv-3000.app.github.dev/api/movies";
 const $contenedor = document.querySelector(".movies-grid");
+const $continueWatching = document.getElementById("continue-watching-container");
+const $newReleases = document.getElementById("new-releases-container");
 
 // --- FUNCIÓN PRINCIPAL ---
 async function LoadMovies() {
