@@ -111,7 +111,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 const API =
-    "http://localhost:3000/api/movies";
+    "https://legendary-telegram-pjqv499g9jj5279wv-3000.app.github.dev/api/movies";
 const $contenedor = document.querySelector(".movies-grid");
 
 async function LoadMovies() {
@@ -137,8 +137,26 @@ async function LoadMovies() {
             return true;
         });
 
-        const isSubDir = path.includes("/allMovies/") || path.includes("/favorites/") || path.includes("/plans/") || path.includes("/session/");
-        const imgPrefix = isSubDir ? "../" : "";
+        let htmlTemplate = "";
 
         filtrados.forEach((peli) => {
-            // Cl
+          htmlTemplate += `
+            <div class="tarjeta-pelicula">
+                <div class="portada-pelicula">
+                    <img src="${peli.url_portada}" alt="${peli.titulo}" loading="lazy" />
+                </div>
+                <div class="info-tarjeta">
+                    <span>${peli.titulo}</span>
+                </div>
+            </div>
+          `;
+        });
+    
+        $contenedor.innerHTML = htmlTemplate;
+      } catch (error) {
+        console.error("Error al cargar:", error);
+        $contenedor.innerHTML = "<p>Error al conectar con la base de datos.</p>";
+      }
+    }
+    
+    LoadMovies();
