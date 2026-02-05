@@ -123,7 +123,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 const API =
-    "https://legendary-telegram-pjqv499g9jj5279wv-3000.app.github.dev/api/movies";
+    "https://silver-chainsaw-7v4q6wwrw77vh4x7-3000.app.github.dev/api/movies";
 const $contenedor = document.querySelector(".movies-grid");
 
 // --- FUNCIÓN PRINCIPAL ---
