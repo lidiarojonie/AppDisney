@@ -1,6 +1,6 @@
 /* CSS for Profile Selection Screen (index.html) */
 
-body {
+#profile-view {
     margin: 0;
     padding: 0;
     background-color: #1a1d29;
@@ -11,7 +11,12 @@ body {
     align-items: center;
     justify-content: center;
     height: 100vh;
+    width: 100vw;
     overflow: hidden;
+    position: fixed; /* Ensure it stays on top or fixed */
+    top: 0;
+    left: 0;
+    z-index: 2000; /* High z-index to cover everything else */
 }
 
 .logo-container {
