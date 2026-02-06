@@ -19,8 +19,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
 
     // Filters logic
-    const filterButtons = document.querySelectorAll('.cat-pill');
-    let currentFilter = 'All Items';
+    // const filterButtons = document.querySelectorAll('.cat-pill'); // Removed
+    // let currentFilter = 'All Items'; // Removed
     let currentGenreId = null;
     let currentSortOrder = 'title_asc';
 
@@ -97,15 +97,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     // Filter Buttons Event Listeners
-    filterButtons.forEach(btn => {
-        btn.addEventListener('click', () => {
-            // Update UI
-            filterButtons.forEach(b => b.classList.replace('active', 'inactive'));
-            btn.classList.replace('inactive', 'active');
-            currentFilter = btn.textContent.trim();
-            applyFilter();
-        });
-    });
+    // Filter Buttons Event Listeners - Removed
+    // filterButtons.forEach(btn => { ... });
 
     // --- Filter Dropdown Logic ---
     const filterBtn = document.getElementById('filterBtn');
@@ -160,16 +153,8 @@ document.addEventListener('DOMContentLoaded', () => {
             filtered = filtered.filter(f => f.title.toLowerCase().includes(searchTerm));
         }
 
-        // 2. Apply Category Filter
-        if (currentFilter === 'Movies') {
-            filtered = filtered.filter(f => f.is_series === 1);
-        } else if (currentFilter === 'Series') { // Note: Button text might need verification, user said "Movies" and "Disney+ Originals" in html but let's stick to logic
-            // HTML says: "Movies", "Disney+ Originals". "All Items"
-            // Let's assume Series logic if added, but currently buttons are: All Items, Movies, Disney+ Originals
-            // The original code was checking for 'Series' string but HTML buttons were 'Movies', 'Disney+ Originals'. 
-            // Logic in original file: if (currentFilter === 'Movies') ... else if (currentFilter === 'Series')
-            // I will maintain existing structure but ensure it works.
-        }
+        // 2. Apply Category Filter (Pills) - Removed
+        // if (currentFilter === 'Movies') { ... }
 
         // 3. Apply Genre Filter
         // 3. Apply Genre Filter
