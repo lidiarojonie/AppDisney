@@ -236,5 +236,81 @@ if (homeLink) {
     });
 }
 
+// --- FUNCIONES PARA CARRUSELES ---
+async function LoadCarouselMovies() {
+    if (!$continueWatching && !$newReleases) return;
+
+    try {
+        const response = await fetch(API);
+        if (!response.ok) throw new Error("Error en la respuesta de la API");
+
+        const data = await response.json();
+        const allMovies = data.movies;
+
+        // Continue Watching: primeras 6 películas (con botón de play)
+        if ($continueWatching && allMovies.length > 0) {
+            const continueWatchingMovies = allMovies.slice(0, 6);
+            $continueWatching.innerHTML = createCarouselHTML(continueWatchingMovies, true);
+        }
+
+        // New Releases: siguientes 6 películas (sin botón de play)
+        if ($newReleases && allMovies.length > 6) {
+            const newReleasesMovies = allMovies.slice(6, 12);
+            $newReleases.innerHTML = createCarouselHTML(newReleasesMovies, false);
+        }
+
+    } catch (error) {
+        console.error("Error al cargar carruseles:", error);
+    }
+}
+
+function createCarouselHTML(movies, showPlayButton = false) {
+    let html = '<div class="carousel-scroll">';
+
+    movies.forEach((movie) => {
+        const nombreArchivo = movie.photo_url ? movie.photo_url.split('/').pop() : "";
+        const rutaImagenLocal = `MoviesImagenes/${nombreArchivo}`;
+
+        const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+        const isFav = favorites.some(f => f.title === movie.title);
+        const favIcon = isFav ? 'favorite' : 'favorite_border';
+        const favClass = isFav ? 'text-red-500 fill-current' : 'text-slate-400';
+
+        // Botón de play solo para Continue Watching
+        const playButton = showPlayButton ? `
+            <div class="carousel-play-overlay">
+                <span class="material-symbols-outlined">play_arrow</span>
+            </div>
+        ` : '';
+
+        html += `
+            <div class="carousel-card">
+                <div class="carousel-thumb" style="background-image: url('${rutaImagenLocal}')">
+                    ${playButton}
+                </div>
+                <div class="carousel-overlay">
+                    <div class="carousel-content">
+                        <div class="movie-title-row">
+                            <h3 class="carousel-title">${movie.title}</h3>
+                            <button class="fav-btn ${favClass}" data-title="${movie.title}">
+                                <span class="material-symbols-outlined">${favIcon}</span>
+                            </button>
+                        </div>
+                        <div class="meta-row">
+                            <span>${movie.release_year}</span>
+                            <span class="rating-badge">HD</span>
+                            <span>${movie.duration_min} min</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+    });
+
+    html += '</div>';
+    return html;
+}
+
 // Ejecutar la carga inicial
 LoadMovies();
+LoadCarouselMovies();

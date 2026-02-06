@@ -659,19 +659,124 @@ html.dark .search-input {
     display: none;
 }
 
+.carousel-scroll {
+    display: flex;
+    gap: 1rem;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    padding-bottom: 0.5rem;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+.carousel-scroll::-webkit-scrollbar {
+    display: none;
+}
+
+.carousel-card {
+    position: relative;
+    min-width: 280px;
+    max-width: 280px;
+    flex-shrink: 0;
+    border-radius: 0.5rem;
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.carousel-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+}
+
+.carousel-thumb {
+    width: 100%;
+    aspect-ratio: 16/9;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: #1a2333;
+}
+
+.carousel-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(to top, rgba(11, 13, 16, 0.95) 0%, rgba(11, 13, 16, 0.7) 50%, transparent 100%);
+    padding: 1rem;
+    transform: translateY(0);
+    transition: all 0.3s;
+}
+
+.carousel-card:hover .carousel-overlay {
+    background: linear-gradient(to top, rgba(11, 13, 16, 0.98) 0%, rgba(11, 13, 16, 0.85) 70%, transparent 100%);
+}
+
+.carousel-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.carousel-title {
+    color: var(--color-white);
+    font-size: 1rem;
+    font-weight: 700;
+    margin: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.carousel-play-overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 3.5rem;
+    height: 3.5rem;
+    background-color: rgba(30, 41, 59, 0.8);
+    backdrop-filter: blur(8px);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid rgba(255, 255, 255, 0.9);
+    opacity: 0;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 10;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+}
+
+.carousel-card:hover .carousel-play-overlay {
+    opacity: 1;
+    background-color: var(--color-primary);
+    border-color: var(--color-primary);
+    transform: translate(-50%, -50%) scale(1.1);
+    box-shadow: 0 0 20px rgba(229, 9, 20, 0.6);
+}
+
+.carousel-play-overlay span {
+    font-size: 2rem;
+    color: var(--color-white);
+}
+
 .carousel-container .movie-card {
     min-width: 200px;
     max-width: 200px;
     flex-shrink: 0;
 }
 
+
 .movies-grid {
     display: grid;
     /* Usamos 1fr para que todas las columnas ocupen el mismo espacio exacto */
-    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); 
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
     gap: 1.5rem;
     padding-bottom: 5rem;
-    align-items: start; /* Alinea todas al inicio de la fila */
+    align-items: start;
+    /* Alinea todas al inicio de la fila */
 }
 
 @media (min-width: 640px) {
@@ -703,16 +808,16 @@ html.dark .search-input {
 .poster-image {
     width: 100%;
     /* Relación de aspecto 2:3 (Póster estándar) */
-    aspect-ratio: 2 / 3 !important; 
+    aspect-ratio: 2 / 3 !important;
     border-radius: 0.5rem;
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
     background-color: #1a2333;
-    
+
     /* Evita que cualquier contenido interno la deforme */
-    display: block; 
-    overflow: hidden; 
+    display: block;
+    overflow: hidden;
     position: relative;
 }
 
@@ -787,7 +892,8 @@ html.dark .search-input {
 
 .popover-thumb {
     width: 100%;
-    aspect-ratio: 16/9; /* Formato panorámico para el previo */
+    aspect-ratio: 16/9;
+    /* Formato panorámico para el previo */
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
