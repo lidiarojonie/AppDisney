@@ -22,6 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const filterButtons = document.querySelectorAll('.cat-pill');
     let currentFilter = 'All Items';
     let currentGenreId = null;
+    let currentSortOrder = 'title_asc';
 
     const renderFavorites = (items) => {
         grid.innerHTML = '';
@@ -148,8 +149,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Search Term
         const term1 = $searchInputHelper ? $searchInputHelper.value.toLowerCase().trim() : "";
-        const term2 = $pageSearchInput ? $pageSearchInput.value.toLowerCase().trim() : "";
-        const searchTerm = term1 || term2;
+        // Removed page specific search input
+        // const term2 = $pageSearchInput ? $pageSearchInput.value.toLowerCase().trim() : "";
+        const searchTerm = term1;
 
         let filtered = validFavs;
 
@@ -170,13 +172,25 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         // 3. Apply Genre Filter
+        // 3. Apply Genre Filter
         if (currentGenreId) {
             // parseInt because dataset is string, genre_id is number
             filtered = filtered.filter(f => f.genre_id === parseInt(currentGenreId));
         }
 
-        // Note: The HTML has "Movies" and "Disney+ Originals". Original JS had "Movies" and "Series".
-        // Let's stick to modifying logical structure for search only, keeping existing category logic mostly intact or safe.
+        // 4. Sorting Logic
+        filtered.sort((a, b) => {
+            if (currentSortOrder === 'title_asc') {
+                return a.title.localeCompare(b.title);
+            } else if (currentSortOrder === 'title_desc') {
+                return b.title.localeCompare(a.title);
+            } else if (currentSortOrder === 'year_desc') {
+                return b.release_year - a.release_year;
+            } else if (currentSortOrder === 'year_asc') {
+                return a.release_year - b.release_year;
+            }
+            return 0;
+        });
 
         renderFavorites(filtered);
     };
@@ -185,8 +199,31 @@ document.addEventListener('DOMContentLoaded', () => {
     if ($searchInputHelper) {
         $searchInputHelper.addEventListener("input", applyFilter);
     }
-    if ($pageSearchInput) {
-        $pageSearchInput.addEventListener("input", applyFilter);
+
+    // --- ORDER DROPDOWN LOGIC ---
+    const orderBtn = document.getElementById('orderBtn');
+    const orderDropdown = document.getElementById('orderDropdown');
+
+    if (orderBtn && orderDropdown) {
+        orderBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            orderDropdown.classList.toggle('active');
+        });
+
+        document.addEventListener('click', (e) => {
+            if (!orderDropdown.contains(e.target) && !orderBtn.contains(e.target)) {
+                orderDropdown.classList.remove('active');
+            }
+        });
+
+        const orderItems = orderDropdown.querySelectorAll('.dropdown-item');
+        orderItems.forEach(item => {
+            item.addEventListener('click', (e) => {
+                currentSortOrder = e.target.dataset.sort;
+                orderDropdown.classList.remove('active');
+                applyFilter();
+            });
+        });
     }
 
     // Initial render
