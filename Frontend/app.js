@@ -284,14 +284,18 @@ function createCarouselHTML(movies, showPlayButton = false) {
         ` : '';
 
         html += `
-            <div class="carousel-card">
-                <div class="carousel-thumb" style="background-image: url('${rutaImagenLocal}')">
+            <div class="movie-card">
+                <div class="poster-image" style="background-image: url('${rutaImagenLocal}')">
                     ${playButton}
                 </div>
-                <div class="carousel-overlay">
-                    <div class="carousel-content">
+
+                <div class="movie-popover">
+                    <div class="popover-thumb" style="background-image: url('${rutaImagenLocal}')">
+                        ${playButton}
+                    </div>
+                    <div class="popover-content">
                         <div class="movie-title-row">
-                            <h3 class="carousel-title">${movie.title}</h3>
+                            <h3 class="movie-title">${movie.title}</h3>
                             <button class="fav-btn ${favClass}" data-title="${movie.title}">
                                 <span class="material-symbols-outlined">${favIcon}</span>
                             </button>
@@ -314,3 +318,30 @@ function createCarouselHTML(movies, showPlayButton = false) {
 // Ejecutar la carga inicial
 LoadMovies();
 LoadCarouselMovies();
+
+// --- NAVEGACIÓN DE CARRUSELES CON FLECHAS ---
+document.addEventListener('click', (e) => {
+    const arrow = e.target.closest('.carousel-arrow');
+    if (!arrow) return;
+
+    const carouselName = arrow.dataset.carousel;
+    const container = document.getElementById(`${carouselName}-container`);
+    const scrollContainer = container.querySelector('.carousel-scroll');
+
+    if (!scrollContainer) return;
+
+    const scrollAmount = 300; // Cantidad de píxeles a desplazar
+    const isLeft = arrow.classList.contains('carousel-arrow-left');
+
+    if (isLeft) {
+        scrollContainer.scrollBy({
+            left: -scrollAmount,
+            behavior: 'smooth'
+        });
+    } else {
+        scrollContainer.scrollBy({
+            left: scrollAmount,
+            behavior: 'smooth'
+        });
+    }
+});
