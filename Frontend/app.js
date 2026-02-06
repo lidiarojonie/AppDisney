@@ -257,24 +257,26 @@ function renderMovies(movies) {
 
         htmlTemplate += `
             <div class="movie-card">
-                <div class="poster-image" style="background-image: url('${rutaImagenLocal}')"></div>
+                <a href="movies/movie_details.html?id=${peli.id}" style="text-decoration: none; color: inherit; display: block; height: 100%;">
+                    <div class="poster-image" style="background-image: url('${rutaImagenLocal}')"></div>
 
-                <div class="movie-popover">
-                    <div class="popover-thumb" style="background-image: url('${rutaImagenLocal}')"></div>
-                    <div class="popover-content">
-                        <div class="movie-title-row">
-                            <h3 class="movie-title">${peli.title}</h3>
-                            <button class="fav-btn ${favClass}" data-title="${peli.title}">
-                                <span class="material-symbols-outlined">${favIcon}</span>
-                            </button>
-                        </div>
-                        <div class="meta-row">
-                            <span>${peli.release_year}</span>
-                            <span class="rating-badge">HD</span>
-                            <span>${peli.duration_min} min</span>
+                    <div class="movie-popover">
+                        <div class="popover-thumb" style="background-image: url('${rutaImagenLocal}')"></div>
+                        <div class="popover-content">
+                            <div class="movie-title-row">
+                                <h3 class="movie-title">${peli.title}</h3>
+                                <button class="fav-btn ${favClass}" data-title="${peli.title}">
+                                    <span class="material-symbols-outlined">${favIcon}</span>
+                                </button>
+                            </div>
+                            <div class="meta-row">
+                                <span>${peli.release_year}</span>
+                                <span class="rating-badge">HD</span>
+                                <span>${peli.duration_min} min</span>
+                            </div>
                         </div>
                     </div>
-                </div>
+                </a>
             </div>
         `;
     });
@@ -386,24 +388,26 @@ function createCarouselHTML(movies, showPlayButton = false) {
 
         html += `
             <div class="carousel-card">
-                <div class="carousel-thumb" style="background-image: url('${rutaImagenLocal}')">
-                    ${playButton}
-                </div>
-                <div class="carousel-overlay">
-                    <div class="carousel-content">
-                        <div class="movie-title-row">
-                            <h3 class="carousel-title">${movie.title}</h3>
-                            <button class="fav-btn ${favClass}" data-title="${movie.title}">
-                                <span class="material-symbols-outlined">${favIcon}</span>
-                            </button>
-                        </div>
-                        <div class="meta-row">
-                            <span>${movie.release_year}</span>
-                            <span class="rating-badge">HD</span>
-                            <span>${movie.duration_min} min</span>
+                <a href="movies/movie_details.html?id=${movie.id}" style="text-decoration: none; color: inherit; display: block; height: 100%;">
+                    <div class="carousel-thumb" style="background-image: url('${rutaImagenLocal}')">
+                        ${playButton}
+                    </div>
+                    <div class="carousel-overlay">
+                        <div class="carousel-content">
+                            <div class="movie-title-row">
+                                <h3 class="carousel-title">${movie.title}</h3>
+                                <button class="fav-btn ${favClass}" data-title="${movie.title}">
+                                    <span class="material-symbols-outlined">${favIcon}</span>
+                                </button>
+                            </div>
+                            <div class="meta-row">
+                                <span>${movie.release_year}</span>
+                                <span class="rating-badge">HD</span>
+                                <span>${movie.duration_min} min</span>
+                            </div>
                         </div>
                     </div>
-                </div>
+                </a>
             </div>
         `;
     });

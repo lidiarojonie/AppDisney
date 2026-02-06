@@ -50,23 +50,25 @@ document.addEventListener('DOMContentLoaded', () => {
             const duration = movie.duration_min ? movie.duration_min + 'm' : '';
 
             card.innerHTML = `
-                <div class="poster-image-container">
-                    <img class="poster-img" src="${photoUrl}" alt="${movie.title} poster" />
-                    <div class="favorite-btn" data-title="${movie.title}">
-                        <span class="material-symbols-outlined text-lg-icon"
-                            style="font-variation-settings: 'FILL' 1">favorite</span>
-                    </div>
-                    <div class="hover-overlay">
-                        <button class="play-btn">
-                            <span class="material-symbols-outlined">play_arrow</span> Play
-                        </button>
-                        <div class="meta-info">
-                            <span class="rating-badge">98% Match</span>
-                            <span>${duration}</span>
+                <a href="../movies/movie_details.html?id=${movie.id}" style="text-decoration: none; color: inherit; display: block;">
+                    <div class="poster-image-container">
+                        <img class="poster-img" src="${photoUrl}" alt="${movie.title} poster" />
+                        <div class="favorite-btn" data-title="${movie.title}">
+                            <span class="material-symbols-outlined text-lg-icon"
+                                style="font-variation-settings: 'FILL' 1">favorite</span>
+                        </div>
+                        <div class="hover-overlay">
+                            <button class="play-btn">
+                                <span class="material-symbols-outlined">play_arrow</span> Play
+                            </button>
+                            <div class="meta-info">
+                                <span class="rating-badge">98% Match</span>
+                                <span>${duration}</span>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <p class="poster-title">${movie.title}</p>
+                    <p class="poster-title">${movie.title}</p>
+                </a>
             `;
 
             // Add remove functionality

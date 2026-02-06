@@ -260,24 +260,26 @@ function renderMovies(movies) {
 
         htmlTemplate += `
             <div class="movie-card">
-                <div class="poster-image" style="background-image: url('${rutaImagenLocal}')"></div>
+                <a href="../movies/movie_details.html?id=${peli.id}" class="movie-link" style="text-decoration: none; color: inherit; display: block; height: 100%;">
+                    <div class="poster-image" style="background-image: url('${rutaImagenLocal}')"></div>
 
-                <div class="movie-popover">
-                    <div class="popover-thumb" style="background-image: url('${rutaImagenLocal}')"></div>
-                    <div class="popover-content">
-                        <div class="movie-title-row">
-                            <h3 class="movie-title">${peli.title}</h3>
-                            <button class="fav-btn ${favClass}" data-title="${peli.title}">
-                                <span class="material-symbols-outlined">${favIcon}</span>
-                            </button>
-                        </div>
-                        <div class="meta-row">
-                            <span>${peli.release_year}</span>
-                            <span class="rating-badge">HD</span>
-                            <span>${peli.duration_min} min</span>
+                    <div class="movie-popover">
+                        <div class="popover-thumb" style="background-image: url('${rutaImagenLocal}')"></div>
+                        <div class="popover-content">
+                            <div class="movie-title-row">
+                                <h3 class="movie-title">${peli.title}</h3>
+                                <button class="fav-btn ${favClass}" data-title="${peli.title}">
+                                    <span class="material-symbols-outlined">${favIcon}</span>
+                                </button>
+                            </div>
+                            <div class="meta-row">
+                                <span>${peli.release_year}</span>
+                                <span class="rating-badge">HD</span>
+                                <span>${peli.duration_min} min</span>
+                            </div>
                         </div>
                     </div>
-                </div>
+                </a>
             </div>
         `;
     });

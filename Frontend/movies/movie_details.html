@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <link href="https://fonts.googleapis.com/css2?family=Spline+Sans:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="../styles.css" />
+    <link rel="stylesheet" href="mandalorian.css" />
+    <!-- Reuse mandalorian.css for now as it contains the styles for this layout -->
+    <title>Movie Details | Disney+</title>
+    <style>
+        /* Fallback for dynamic background */
+        .hero-background img {
+            opacity: 0;
+            /* Hidden until loaded to avoid flash */
+            transition: opacity 0.5s ease-in;
+        }
+
+        .hero-background img.loaded {
+            opacity: 1;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="page-container">
+        <div class="hero-background">
+            <div class="gradient-left"></div>
+            <div class="gradient-top"></div>
+            <img id="heroImage" alt="Movie Background" src="" />
+        </div>
+
+        <header class="site-header transparent-header">
+            <div class="header-left">
+                <a href="../home.html" class="logo-link">
+                    <div class="logo-icon">
+                        <img src="../Imagenes/logo.png" alt="Logo">
+                    </div>
+                    <h2 class="logo-text">STREAM</h2>
+                </a>
+                <nav class="main-nav">
+                    <a class="nav-link" href="../home.html">Home</a>
+                    <a class="nav-link" href="../allMovies/allMovies.html">Movies</a>
+                    <a class="nav-link" href="../favorites/favorites.html">MyFavorites</a>
+                </nav>
+            </div>
+            <div class="header-right">
+                <div class="search-container">
+                    <span class="material-symbols-outlined search-icon">search</span>
+                    <input class="search-input" placeholder="Search..." type="text" />
+                </div>
+                <div class="notification-icon">
+                    <span class="material-symbols-outlined">notifications</span>
+                    <div class="notification-dot"></div>
+                </div>
+                <div class="user-dropdown-container">
+                    <div class="user-avatar"
+                        style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBcHDc-ey8kjvRGkxEDP3YvCJF539f_5sbUYgDYZsCjD-jaVeC37DBP3LjjfMBqzyzcVUltjOb1TSiCUvKrAg96V1_E4ETp3kqnTXgGmEnl2Pdh22QEqTWMom6vu6p686Z7OwlhynDD2oj5TIRpY84Xwe7zzQ9uQA-WSeQT3Gzp6dwjCbDuG9miTrh4zXWHMWsovQY8oFKDRVSU0RHbkiH23DtZM8eTLhMKyAMumQ5b84RvaPz_F6-tBVojX-P6lSaZC7r-m8wlMO54");'>
+                    </div>
+                    <div class="user-dropdown">
+                        <a href="../profile/profile.html" class="dropdown-item">
+                            <span class="material-symbols-outlined">person</span>
+                            <span>Profile</span>
+                        </a>
+                        <a href="../plans/plans.html" class="dropdown-item">
+                            <span class="material-symbols-outlined">subscriptions</span>
+                            <span>Subscription</span>
+                        </a>
+                        <a href="#" class="dropdown-item">
+                            <span class="material-symbols-outlined">settings</span>
+                            <span>Settings</span>
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a href="../index.html" class="dropdown-item logout">
+                            <span class="material-symbols-outlined">logout</span>
+                            <span>Log Out</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <main class="main-content">
+            <nav class="breadcrumb">
+                <a href="../home.html">Home</a>
+                <span class="material-symbols-outlined">chevron_right</span>
+                <a href="../allMovies/allMovies.html">Movies</a>
+                <span class="material-symbols-outlined">chevron_right</span>
+                <span class="current" id="breadcrumbTitle">Loading...</span>
+            </nav>
+
+            <div class="hero-section">
+                <div class="animate-slide-up delay-100">
+                    <h1 class="movie-title">
+                        <span id="movieTitle">LOADING...</span>
+                    </h1>
+                </div>
+
+                <div class="movie-meta animate-slide-up delay-200">
+                    <div class="meta-info">
+                        <span class="rating-badge">HD</span>
+                        <span id="movieYear"></span>
+                        <span class="dot-separator"></span>
+                        <span id="movieDuration"></span>
+                        <span class="dot-separator"></span>
+                        <span class="genre-text" id="movieGenre">Genre</span>
+                    </div>
+                    <div class="meta-divider"></div>
+                    <div class="ratings-group">
+                        <div class="rating-item">
+                            <span class="score">98% Match</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="action-buttons animate-slide-up delay-300">
+                    <button class="btn-play">
+                        <span class="material-symbols-outlined">play_arrow</span>
+                        PLAY
+                    </button>
+                    <a href="#" target="_blank" class="btn-trailer" id="trailerBtn">
+                        TRAILER
+                    </a>
+                    <div class="icon-buttons">
+                        <button class="icon-btn fav-btn" id="detailsFavBtn" title="Add to Favorites">
+                            <span class="material-symbols-outlined">favorite_border</span>
+                        </button>
+                    </div>
+                </div>
+
+                <p class="movie-description animate-slide-up delay-400" id="movieDescription">
+                    Loading description...
+                </p>
+            </div>
+
+            <!-- Tabs and other sections kept as structure but might be static for now -->
+            <div class="tabs-container">
+                <div class="tabs">
+                    <button class="tab-btn active">SUGGESTED</button>
+                    <button class="tab-btn">DETAILS</button>
+                </div>
+            </div>
+
+            <!-- Reduced sections for general template -->
+        </main>
+
+        <footer class="site-footer">
+            <div class="footer-content">
+                <div class="logo-icon">
+                    <img src="../Imagenes/logo.png" alt="Logo" class="footer-logo-img">
+                </div>
+                <div class="footer-links">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Help</a>
+                    <a href="#">About Us</a>
+                </div>
+                <p class="copyright">© 2026 Streaming Service. All rights reserved.</p>
+            </div>
+        </footer>
+
+        <!-- Logic -->
+        <script src="../app.js"></script>
+        <script src="movie_details.js"></script>
+    </div>
+</body>
+
+</html>
