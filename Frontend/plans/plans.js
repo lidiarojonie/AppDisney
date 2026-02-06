@@ -28,10 +28,10 @@ document.addEventListener('DOMContentLoaded', () => {
             if (cycle === 'annual') {
                 // Calculation: 12 months * monthly price - 15% discount
                 const annualPrice = (monthlyPrice * 12) * 0.85;
-                el.textContent = `$${annualPrice.toFixed(2)}`;
+                el.textContent = `${annualPrice.toFixed(2)}€`;
                 periodElements[index].textContent = '/yr';
             } else {
-                el.textContent = `$${monthlyPrice.toFixed(2)}`;
+                el.textContent = `${monthlyPrice.toFixed(2)}€`;
                 periodElements[index].textContent = '/mo';
             }
         });
