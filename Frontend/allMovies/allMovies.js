@@ -121,72 +121,75 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     };
 
-    // --- Filter Dropdown Logic ---
-    const filterBtn = document.getElementById('filterBtn');
-    const filterDropdown = document.getElementById('filterDropdown');
+    // --- Dropdown Toggle Logic Helper ---
+    const setupDropdown = (btnId, dropdownId) => {
+        const btn = document.getElementById(btnId);
+        const dropdown = document.getElementById(dropdownId);
 
-    if (filterBtn && filterDropdown) {
-        filterBtn.addEventListener('click', (e) => {
-            e.stopPropagation();
-            filterDropdown.classList.toggle('active');
-        });
-
-        document.addEventListener('click', (e) => {
-            if (!filterDropdown.contains(e.target) && !filterBtn.contains(e.target)) {
-                filterDropdown.classList.remove('active');
-            }
-        });
-
-        // Close dropdown when an item is selected
-        const dropdownItems = filterDropdown.querySelectorAll('.dropdown-item');
-        dropdownItems.forEach(item => {
-            item.addEventListener('click', () => {
-                filterDropdown.classList.remove('active');
+        if (btn && dropdown) {
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                // Close other dropdowns first
+                document.querySelectorAll('.filter-dropdown').forEach(d => {
+                    if (d !== dropdown) d.classList.remove('active');
+                });
+                dropdown.classList.toggle('active');
             });
+
+            document.addEventListener('click', (e) => {
+                if (!dropdown.contains(e.target) && !btn.contains(e.target)) {
+                    dropdown.classList.remove('active');
+                }
+            });
+        }
+    };
+
+    setupDropdown('filterBtn', 'filterDropdown');
+    setupDropdown('sortBtn', 'sortDropdown');
+
+    // --- State ---
+    let allMoviesData = [];
+    let currentCategory = 'All';
+    let currentSort = 'newest'; // default
+
+    // --- Filter and Sort Logic ---
+    const filterAndRenderMovies = () => {
+        let filtered = [...allMoviesData];
+
+        // 1. Filter by category
+        if (currentCategory !== 'All') {
+            filtered = filtered.filter(movie => {
+                // Determine category from title/summary as a fallback if API doesn't have it
+                // Based on original HTML, categories were: Disney, Pixar, Marvel, Star Wars, Stream+
+                const title = movie.title.toLowerCase();
+                const summary = (movie.summary || "").toLowerCase();
+                const cat = currentCategory.toLowerCase();
+
+                if (cat === 'stream+') return true; // All are on Stream+
+                return title.includes(cat) || summary.includes(cat);
+            });
+        }
+
+        // 2. Sort by year
+        filtered.sort((a, b) => {
+            const yearA = parseInt(a.release_year) || 0;
+            const yearB = parseInt(b.release_year) || 0;
+            return currentSort === 'newest' ? yearB - yearA : yearA - yearB;
         });
-    }
-});
 
-const API =
-    "https://silver-chainsaw-7v4q6wwrw77vh4x7-3000.app.github.dev/api/movies";
-const $contenedor = document.querySelector(".movies-grid");
+        renderMovies(filtered);
+    };
 
-// --- FUNCIÓN PRINCIPAL ---
-async function LoadMovies() {
-    if (!$contenedor) return;
-
-    try {
-        const response = await fetch(API);
-        if (!response.ok) throw new Error("Error en la respuesta de la API");
-
-        const data = await response.json();
-        // IMPORTANTE: Asegúrate de que tu API devuelve los datos en data.movies
-        const allItems = data.movies;
-
-        const path = window.location.pathname;
-        const esHome = path.endsWith("index.html") || path === "/" || path === "" || path.includes("index");
-        const esPaginaSeries = path.includes("series.html");
-        const esPaginaPeliculas = path.includes("allMovies");
-
-        const filtrados = allItems.filter((item) => {
-            if (esHome) return true;
-            // En tu BD: is_series (1 para sí, 0 para no)
-            if (esPaginaSeries) return item.is_series === 1;
-            if (esPaginaPeliculas) return true; // Show all items, same as home
-            return true;
-        });
+    // --- Rendering Logic ---
+    const renderMovies = (movies) => {
+        if (!$contenedor) return;
 
         const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
-
         let htmlTemplate = "";
 
-        filtrados.forEach((peli) => {
-            // Extract filename from database path and construct local path
+        movies.forEach((peli) => {
             const nombreArchivo = peli.photo_url ? peli.photo_url.split('/').pop() : "";
             const rutaImagenLocal = `../MoviesImagenes/${nombreArchivo}`;
-
-            // 2. Lógica de favoritos
-            const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
             const isFav = favorites.some(f => f.title === peli.title);
             const favIcon = isFav ? 'favorite' : 'favorite_border';
             const favClass = isFav ? 'text-red-500 fill-current' : 'text-slate-400';
@@ -194,7 +197,6 @@ async function LoadMovies() {
             htmlTemplate += `
                 <div class="movie-card">
                     <div class="poster-image" style="background-image: url('${rutaImagenLocal}')"></div>
-
                     <div class="movie-popover">
                         <div class="popover-thumb" style="background-image: url('${rutaImagenLocal}')"></div>
                         <div class="popover-content">
@@ -215,14 +217,49 @@ async function LoadMovies() {
             `;
         });
 
-        $contenedor.innerHTML = htmlTemplate;
+        $contenedor.innerHTML = htmlTemplate || '<p class="no-results">No movies found matching your criteria.</p>';
+        initButtons(); // Sync favorite buttons after render
+    };
 
-    } catch (error) {
-        console.error("Error al cargar:", error);
-        $contenedor.innerHTML = `<p class="error">Error al cargar la base de datos.</p>`;
+    // --- Event Listeners for Filters/Sort ---
+    document.querySelectorAll('#filterDropdown .dropdown-item').forEach(item => {
+        item.addEventListener('click', () => {
+            currentCategory = item.dataset.category;
+            filterAndRenderMovies();
+            document.getElementById('filterDropdown').classList.remove('active');
+        });
+    });
+
+    document.querySelectorAll('#sortDropdown .dropdown-item').forEach(item => {
+        item.addEventListener('click', () => {
+            currentSort = item.dataset.sort;
+            filterAndRenderMovies();
+            document.getElementById('sortDropdown').classList.remove('active');
+        });
+    });
+
+    // --- Initial Load ---
+    async function LoadMovies() {
+        if (!$contenedor) return;
+
+        try {
+            const response = await fetch(API);
+            if (!response.ok) throw new Error("Error en la respuesta de la API");
+
+            const data = await response.json();
+            allMoviesData = data.movies;
+            filterAndRenderMovies();
+
+        } catch (error) {
+            console.error("Error al cargar:", error);
+            $contenedor.innerHTML = `<p class="error">Error al cargar la base de datos.</p>`;
+        }
     }
-}
 
-// Ejecutar la carga
-LoadMovies();
+    LoadMovies();
+});
+
+const API = "https://silver-chainsaw-7v4q6wwrw77vh4x7-3000.app.github.dev/api/movies";
+const $contenedor = document.querySelector(".movies-grid");
+
 

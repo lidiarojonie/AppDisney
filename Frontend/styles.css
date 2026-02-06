@@ -842,9 +842,40 @@ html.dark .search-input {
     /* Alinea todas al inicio de la fila */
 }
 
+/* Base popover edge cases (2 columns / mobile default) */
+.movie-card:nth-child(2n+1) .movie-popover {
+    left: 0;
+    margin-left: 0;
+}
+
+.movie-card:nth-child(2n) .movie-popover {
+    left: auto;
+    right: 0;
+    margin-left: 0;
+}
+
+
 @media (min-width: 640px) {
     .movies-grid {
         grid-template-columns: repeat(3, 1fr);
+    }
+
+    /* Overrides for 3 columns */
+    .movie-card:nth-child(n) .movie-popover {
+        left: 50%;
+        margin-left: -140px;
+        right: auto;
+    }
+
+    .movie-card:nth-child(3n+1) .movie-popover {
+        left: 0;
+        margin-left: 0;
+    }
+
+    .movie-card:nth-child(3n) .movie-popover {
+        left: auto;
+        right: 0;
+        margin-left: 0;
     }
 }
 
@@ -852,11 +883,47 @@ html.dark .search-input {
     .movies-grid {
         grid-template-columns: repeat(4, 1fr);
     }
+
+    /* Overrides for 4 columns */
+    .movie-card:nth-child(n) .movie-popover {
+        left: 50%;
+        margin-left: -140px;
+        right: auto;
+    }
+
+    .movie-card:nth-child(4n+1) .movie-popover {
+        left: 0;
+        margin-left: 0;
+    }
+
+    .movie-card:nth-child(4n) .movie-popover {
+        left: auto;
+        right: 0;
+        margin-left: 0;
+    }
 }
 
 @media (min-width: 1024px) {
     .movies-grid {
         grid-template-columns: repeat(6, 1fr);
+    }
+
+    /* Overrides for 6 columns */
+    .movie-card:nth-child(n) .movie-popover {
+        left: 50%;
+        margin-left: -140px;
+        right: auto;
+    }
+
+    .movie-card:nth-child(6n+1) .movie-popover {
+        left: 0;
+        margin-left: 0;
+    }
+
+    .movie-card:nth-child(6n) .movie-popover {
+        left: auto;
+        right: 0;
+        margin-left: 0;
     }
 }
 
@@ -899,53 +966,37 @@ html.dark .search-input {
     white-space: nowrap;
 }
 
-/* Movie Popover */
+/* Base Popover State */
 .movie-popover {
     position: absolute;
-    width: 320px;
+    width: 280px;
+    /* Slightly reduced for better fit */
+    max-width: calc(100vw - 40px);
+    /* Ensure it never exceeds viewport */
     background-color: #1a2333;
-    /* Dark card bg */
     border-radius: 0.75rem;
     box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
     border: 1px solid rgba(229, 9, 20, 0.3);
-    /* Red border */
     overflow: hidden;
 
     opacity: 0;
     visibility: hidden;
-    transform: scale(0.95) translateX(-50%);
+    transform: scale(0.95);
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     pointer-events: none;
     z-index: 100;
-    z-index: 100;
+
+    /* Centering calculation */
     left: 50%;
+    margin-left: -140px;
+    /* Half of width */
     top: 0;
-}
-
-/* Fix for left/right edge clipping */
-.movie-card:first-child .movie-popover {
-    left: 0;
-    transform: scale(0.95);
-}
-
-.movie-card:first-child:hover .movie-popover {
-    transform: scale(1.1) translateY(-10px);
-}
-
-.movie-card:last-child .movie-popover {
-    left: auto;
-    right: 0;
-    transform: scale(0.95);
-}
-
-.movie-card:last-child:hover .movie-popover {
-    transform: scale(1.1) translateY(-10px);
 }
 
 .movie-card:hover .movie-popover {
     opacity: 1;
     visibility: visible;
-    transform: scale(1.1) translateX(-50%) translateY(-10px);
+    transform: scale(1.1) translateY(-10px);
     pointer-events: auto;
 }
 

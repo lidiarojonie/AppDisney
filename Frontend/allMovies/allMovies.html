@@ -81,12 +81,22 @@
                             Filter
                         </button>
                         <div class="filter-dropdown" id="filterDropdown">
-                            <div class="dropdown-item">All</div>
-                            <div class="dropdown-item">Disney</div>
-                            <div class="dropdown-item">Pixar</div>
-                            <div class="dropdown-item">Marvel</div>
-                            <div class="dropdown-item">Star Wars</div>
-                            <div class="dropdown-item">Stream+</div>
+                            <div class="dropdown-item" data-category="All">All</div>
+                            <div class="dropdown-item" data-category="Disney">Disney</div>
+                            <div class="dropdown-item" data-category="Pixar">Pixar</div>
+                            <div class="dropdown-item" data-category="Marvel">Marvel</div>
+                            <div class="dropdown-item" data-category="Star Wars">Star Wars</div>
+                            <div class="dropdown-item" data-category="Stream+">Stream+</div>
+                        </div>
+                    </div>
+                    <div class="filter-container">
+                        <button class="filter-btn" id="sortBtn">
+                            <span class="material-symbols-outlined text-xs-icon">sort</span>
+                            Sort
+                        </button>
+                        <div class="filter-dropdown" id="sortDropdown">
+                            <div class="dropdown-item" data-sort="newest">Newest first</div>
+                            <div class="dropdown-item" data-sort="oldest">Oldest first</div>
                         </div>
                     </div>
                 </div>
