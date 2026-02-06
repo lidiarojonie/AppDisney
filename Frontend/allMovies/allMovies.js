@@ -151,10 +151,12 @@ const API =
     "https://silver-chainsaw-7v4q6wwrw77vh4x7-3000.app.github.dev/api/movies";
 const $contenedor = document.querySelector(".movies-grid");
 const $searchInputHelper = document.querySelector(".search-input"); // Header search
-const $pageSearchInput = document.querySelector(".all-movies-search-input"); // Page specific search
+// Removed page specific search input
+// const $pageSearchInput = document.querySelector(".all-movies-search-input"); 
 
 // Global state
 let allMoviesData = [];
+let currentSortOrder = 'title_asc'; // Default sort
 
 // --- FUNCIÓN PRINCIPAL DE CARGA ---
 // --- FUNCIÓN PRINCIPAL DE CARGA ---
@@ -199,13 +201,11 @@ function applyFiltersAndRender() {
     if (!$contenedor) return;
 
     // Get search term from either input (prioritizing non-empty one or specialized one)
-    // Actually, usually we might want them synchronized or just check both.
-    const term1 = $searchInputHelper ? $searchInputHelper.value.toLowerCase().trim() : "";
-    const term2 = $pageSearchInput ? $pageSearchInput.value.toLowerCase().trim() : "";
-    // If user types in one, we use that. If both have values, logic depends on design.
-    // Let's assume logical OR or just look for the active one.
-    // Simpler approach: match both content-wise if they exist.
-    const searchTerm = term1 || term2;
+    // actually we only have global search now
+    const searchTerm = $searchInputHelper ? $searchInputHelper.value.toLowerCase().trim() : "";
+
+    // Previous logic was looking at both, now only one source
+
 
     // Sync values visually if you want, but for now just use the value.
 
@@ -225,6 +225,20 @@ function applyFiltersAndRender() {
         const searchMatch = item.title.toLowerCase().includes(searchTerm);
 
         return pageMatch && searchMatch;
+    });
+
+    // 3. Sorting Logic
+    filtrados.sort((a, b) => {
+        if (currentSortOrder === 'title_asc') {
+            return a.title.localeCompare(b.title);
+        } else if (currentSortOrder === 'title_desc') {
+            return b.title.localeCompare(a.title);
+        } else if (currentSortOrder === 'year_desc') {
+            return b.release_year - a.release_year;
+        } else if (currentSortOrder === 'year_asc') {
+            return a.release_year - b.release_year;
+        }
+        return 0;
     });
 
     renderMovies(filtrados);
@@ -278,9 +292,35 @@ if ($searchInputHelper) {
         applyFiltersAndRender();
     });
 }
-if ($pageSearchInput) {
-    $pageSearchInput.addEventListener("input", () => {
-        applyFiltersAndRender();
+
+// --- ORDER DROPDOWN LOGIC ---
+const orderBtn = document.getElementById('orderBtn');
+const orderDropdown = document.getElementById('orderDropdown');
+
+if (orderBtn && orderDropdown) {
+    orderBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        orderDropdown.classList.toggle('active');
+    });
+
+    document.addEventListener('click', (e) => {
+        if (!orderDropdown.contains(e.target) && !orderBtn.contains(e.target)) {
+            orderDropdown.classList.remove('active');
+        }
+    });
+
+    const orderItems = orderDropdown.querySelectorAll('.dropdown-item');
+    orderItems.forEach(item => {
+        item.addEventListener('click', (e) => {
+            currentSortOrder = e.target.dataset.sort;
+            orderDropdown.classList.remove('active');
+
+            // Optional: Update button text or visualize selection
+            // const btnText = orderBtn.childNodes[2];
+            // if (btnText) btnText.textContent = e.target.textContent;
+
+            applyFiltersAndRender();
+        });
     });
 }
 

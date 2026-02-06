@@ -69,12 +69,18 @@
             <div class="section-header">
                 <h2 class="section-title">All Movies</h2>
                 <div class="controls-group">
-                    <label class="all-movies-search-bar">
-                        <div class="search-icon-wrapper">
-                            <span class="material-symbols-outlined text-sm-icon">search</span>
+                    <div class="filter-container">
+                        <button class="filter-btn" id="orderBtn">
+                            <span class="material-symbols-outlined text-xs-icon">sort</span>
+                            Order
+                        </button>
+                        <div class="filter-dropdown" id="orderDropdown">
+                            <div class="dropdown-item" data-sort="title_asc">Title (A-Z)</div>
+                            <div class="dropdown-item" data-sort="title_desc">Title (Z-A)</div>
+                            <div class="dropdown-item" data-sort="year_desc">Year (Newest)</div>
+                            <div class="dropdown-item" data-sort="year_asc">Year (Oldest)</div>
                         </div>
-                        <input class="all-movies-search-input" placeholder="Search within movies" value="" />
-                    </label>
+                    </div>
                     <div class="filter-container">
                         <button class="filter-btn" id="filterBtn">
                             <span class="material-symbols-outlined text-xs-icon">filter_list</span>
