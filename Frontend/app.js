@@ -292,9 +292,27 @@ function renderMovies(movies) {
 // --- EVENT LISTENERS ---
 
 // Search Input Listener
+// Search Input Listener
 if ($searchInput) {
-    $searchInput.addEventListener("input", () => {
-        applyFiltersAndRender();
+    $searchInput.addEventListener("input", (e) => {
+        const path = window.location.pathname;
+        const isHomePage = path.endsWith("home.html") || path.endsWith("index.html") || path === "/" || path === "" || path.includes("index");
+
+        if (isHomePage) {
+            const val = e.target.value;
+            if (val.trim().length > 0) {
+                // Redirect to allMovies with search param
+                // Assuming relative path from home.html is ./allMovies/allMovies.html
+                // But from index.html (if root) it might be ./allMovies/allMovies.html
+                // Let's use absolute path-ish or relative that works for both if they are in same dir level?
+                // home.html is in Frontend/. allMovies is in Frontend/allMovies/.
+                // So path is allMovies/allMovies.html
+                window.location.href = `allMovies/allMovies.html?search=${encodeURIComponent(val)}`;
+            }
+        } else {
+            // Normal filtering for other pages (like allMovies itself)
+            applyFiltersAndRender();
+        }
     });
 }
 

@@ -158,6 +158,18 @@ const $searchInputHelper = document.querySelector(".search-input"); // Header se
 let allMoviesData = [];
 let currentSortOrder = 'title_asc'; // Default sort
 
+// Initialize search from URL if present (runs once)
+if ($searchInputHelper) {
+    const urlParams = new URLSearchParams(window.location.search);
+    const paramSearch = urlParams.get('search');
+    if (paramSearch) {
+        $searchInputHelper.value = paramSearch;
+        // Focus and move cursor to end to allow seamless typing
+        $searchInputHelper.focus();
+        // Small timeout might be needed if focus doesn't stick immediately in some browsers, but mostly fine.
+    }
+}
+
 // --- FUNCIÓN PRINCIPAL DE CARGA ---
 // --- FUNCIÓN PRINCIPAL DE CARGA ---
 async function LoadMovies(genreId = null) {
@@ -202,7 +214,9 @@ function applyFiltersAndRender() {
 
     // Get search term from either input (prioritizing non-empty one or specialized one)
     // actually we only have global search now
-    const searchTerm = $searchInputHelper ? $searchInputHelper.value.toLowerCase().trim() : "";
+    let searchTerm = $searchInputHelper ? $searchInputHelper.value.toLowerCase().trim() : "";
+
+    // Check URL params logic removed from here to prevent re-populating on deletion
 
     // Previous logic was looking at both, now only one source
 
