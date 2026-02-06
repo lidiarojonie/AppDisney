@@ -68,6 +68,7 @@ body {
     height: 100%;
     object-fit: cover;
     transform: scale(1.1);
+    object-position: top;
 }
 
 /* Main Content */
