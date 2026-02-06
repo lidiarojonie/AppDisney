@@ -21,6 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Filters logic
     const filterButtons = document.querySelectorAll('.cat-pill');
     let currentFilter = 'All Items';
+    let currentGenreId = null;
 
     const renderFavorites = (items) => {
         grid.innerHTML = '';
@@ -126,8 +127,15 @@ document.addEventListener('DOMContentLoaded', () => {
         // Close dropdown when an item is selected
         const dropdownItems = filterDropdown.querySelectorAll('.dropdown-item');
         dropdownItems.forEach(item => {
-            item.addEventListener('click', () => {
+            item.addEventListener('click', (e) => {
                 filterDropdown.classList.remove('active');
+                currentGenreId = e.target.dataset.genreId || null; // Handle "All" which is empty string
+
+                // Update button text logic if desired (optional)
+                // const btnText = filterBtn.childNodes[2]; 
+                // if(btnText) btnText.textContent = e.target.textContent;
+
+                applyFilter();
             });
         });
     }
@@ -159,6 +167,12 @@ document.addEventListener('DOMContentLoaded', () => {
             // The original code was checking for 'Series' string but HTML buttons were 'Movies', 'Disney+ Originals'. 
             // Logic in original file: if (currentFilter === 'Movies') ... else if (currentFilter === 'Series')
             // I will maintain existing structure but ensure it works.
+        }
+
+        // 3. Apply Genre Filter
+        if (currentGenreId) {
+            // parseInt because dataset is string, genre_id is number
+            filtered = filtered.filter(f => f.genre_id === parseInt(currentGenreId));
         }
 
         // Note: The HTML has "Movies" and "Disney+ Originals". Original JS had "Movies" and "Series".

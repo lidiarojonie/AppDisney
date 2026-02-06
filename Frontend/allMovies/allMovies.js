@@ -157,11 +157,13 @@ const $pageSearchInput = document.querySelector(".all-movies-search-input"); // 
 let allMoviesData = [];
 
 // --- FUNCIÓN PRINCIPAL DE CARGA ---
-async function LoadMovies() {
+// --- FUNCIÓN PRINCIPAL DE CARGA ---
+async function LoadMovies(genreId = null) {
     if (!$contenedor) return;
 
     try {
-        const response = await fetch(API);
+        const fetchUrl = genreId ? `${API}/${genreId}` : API;
+        const response = await fetch(fetchUrl);
         if (!response.ok) throw new Error("Error en la respuesta de la API");
 
         const data = await response.json();
@@ -175,6 +177,22 @@ async function LoadMovies() {
         $contenedor.innerHTML = `<p class="error">Error al cargar la base de datos.</p>`;
     }
 }
+
+// --- DROPDOWN FILTER LOGIC ---
+document.addEventListener('DOMContentLoaded', () => {
+    const dropdownItems = document.querySelectorAll('.dropdown-item');
+    const filterBtnText = document.querySelector('#filterBtn'); // To update text if needed
+
+    dropdownItems.forEach(item => {
+        item.addEventListener('click', (e) => {
+            const genreId = e.target.dataset.genreId;
+            // Optional: Update button text to reflect selection
+            // if (filterBtnText) filterBtnText.childNodes[2].textContent = e.target.textContent.trim();
+
+            LoadMovies(genreId);
+        });
+    });
+});
 
 // --- FILTER & RENDER LOGIC ---
 function applyFiltersAndRender() {
