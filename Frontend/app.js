@@ -15,6 +15,62 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
+
+    // --- APP NAVIGATION LOGIC ---
+    // If we are on index.html, we handle view switching.
+    // If we are on other pages (favorites/movies), we don't need this specific logic 
+    // unless we want to redirect to index.html#profile-view on logout.
+
+    const logoutBtn = document.getElementById('logout-btn');
+    if (logoutBtn) {
+        logoutBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            logout();
+        });
+    }
+
+    // Check if we already have a session active (optional enhancement)
+    // For now, we default to profile view.
+});
+
+// Exposed functions for onclick events
+function enterApp() {
+    const profileView = document.getElementById('profile-view');
+    const homeView = document.getElementById('home-view');
+
+    if (profileView && homeView) {
+        profileView.classList.add('hidden'); // Or style.display = 'none'
+        // We used position:fixed for profile view, so hiding it is enough.
+        // But for clearer state:
+        profileView.style.display = 'none';
+
+        homeView.classList.remove('hidden');
+        homeView.classList.add('flex'); // Restore flex layout
+
+        // Trigger load if needed (though it runs on load already)
+        // LoadMovies(); 
+    } else {
+        // If not on index.html (e.g. user refreshed while on home.html content in memory?),
+        // Just redirect to index.html would be the fallback if we were multi-page.
+        // Since we are SPA now for Home, this function mostly runs there.
+    }
+}
+
+function logout() {
+    const profileView = document.getElementById('profile-view');
+    const homeView = document.getElementById('home-view');
+
+    if (profileView && homeView) {
+        homeView.classList.add('hidden');
+        homeView.classList.remove('flex');
+
+        profileView.style.display = 'flex'; // Restore flex for centering
+    } else {
+        // If on another page, redirect to index
+        window.location.href = '../index.html';
+    }
+}
+document.addEventListener('DOMContentLoaded', () => {
     // 1. Initialize favorites from localStorage
     // We store an array of movie objects: { title, image, rating, duration }
     let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
@@ -127,74 +183,117 @@ const API =
 const $contenedor = document.querySelector(".movies-grid");
 const $continueWatching = document.getElementById("continue-watching-container");
 const $newReleases = document.getElementById("new-releases-container");
+const $searchInput = document.querySelector(".search-input");
 
-// --- FUNCIÓN PRINCIPAL ---
+// Global state to store all fetched movies
+let allMoviesData = [];
+let currentGenreId = null;
+
+// --- FUNCIÓN PRINCIPAL DE CARGA ---
 async function LoadMovies(genreId = null) {
     if (!$contenedor) return;
 
+    currentGenreId = genreId; // Store current genre context
+
     try {
+        // If we already have data and are just filtering by genre, we might not strictly need to refetch 
+        // if we had *all* movies, but the API endpoint changes based on genreId, so we maintain the fetch.
         const fetchUrl = genreId ? `${API}/${genreId}` : API;
         const response = await fetch(fetchUrl);
         if (!response.ok) throw new Error("Error en la respuesta de la API");
 
         const data = await response.json();
-        const allItems = data.movies;
+        allMoviesData = data.movies; // Store raw data
 
-        const path = window.location.pathname;
-        const esHome = path.endsWith("home.html") || path.endsWith("index.html") || path === "/" || path === "" || path.includes("index");
-        const esPaginaSeries = path.includes("series.html");
-        const esPaginaPeliculas = path.includes("allMovies");
-
-        const filtrados = allItems.filter((item) => {
-            if (genreId) return true; // If we have a genreId, the API already filtered it
-            if (esHome) return true;
-            if (esPaginaSeries) return item.is_series === 1;
-            if (esPaginaPeliculas) return true;
-            return true;
-        });
-
-        let htmlTemplate = "";
-
-        filtrados.forEach((peli) => {
-            // Extract filename from database path and construct local path
-            const nombreArchivo = peli.photo_url ? peli.photo_url.split('/').pop() : "";
-            const rutaImagenLocal = `MoviesImagenes/${nombreArchivo}`;
-
-            const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
-            const isFav = favorites.some(f => f.title === peli.title);
-            const favIcon = isFav ? 'favorite' : 'favorite_border';
-            const favClass = isFav ? 'text-red-500 fill-current' : 'text-slate-400';
-
-            htmlTemplate += `
-                <div class="movie-card">
-                    <div class="poster-image" style="background-image: url('${rutaImagenLocal}')"></div>
-
-                    <div class="movie-popover">
-                        <div class="popover-thumb" style="background-image: url('${rutaImagenLocal}')"></div>
-                        <div class="popover-content">
-                            <div class="movie-title-row">
-                                <h3 class="movie-title">${peli.title}</h3>
-                                <button class="fav-btn ${favClass}" data-title="${peli.title}">
-                                    <span class="material-symbols-outlined">${favIcon}</span>
-                                </button>
-                            </div>
-                            <div class="meta-row">
-                                <span>${peli.release_year}</span>
-                                <span class="rating-badge">HD</span>
-                                <span>${peli.duration_min} min</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            `;
-        });
-
-        $contenedor.innerHTML = htmlTemplate || '<p class="text-center w-full py-10 opacity-50">No movies found in this category.</p>';
+        // Initial render with current search term (likely empty initially)
+        applyFiltersAndRender();
 
     } catch (error) {
         console.error("Error al cargar:", error);
         $contenedor.innerHTML = `<p class="error">Error al cargar la base de datos.</p>`;
     }
+}
+
+// --- FILTER & RENDER LOGIC ---
+function applyFiltersAndRender() {
+    if (!$contenedor) return;
+
+    const searchTerm = $searchInput ? $searchInput.value.toLowerCase().trim() : "";
+    const path = window.location.pathname;
+    const esHome = path.endsWith("home.html") || path.endsWith("index.html") || path === "/" || path === "" || path.includes("index");
+    const esPaginaSeries = path.includes("series.html");
+    const esPaginaPeliculas = path.includes("allMovies");
+
+    const filtrados = allMoviesData.filter((item) => {
+        // 1. Page/Category Logic
+        // Note: API already filters by genre if currentGenreId was set during LoadMovies fetch.
+        // We only enforce additional client-side checks if needed.
+        let matchPage = true;
+        if (esHome) matchPage = true;
+        else if (esPaginaSeries) matchPage = item.is_series === 1;
+        else if (esPaginaPeliculas) matchPage = true;
+
+        // 2. Search Logic
+        const matchSearch = item.title.toLowerCase().includes(searchTerm);
+
+        return matchPage && matchSearch;
+    });
+
+    renderMovies(filtrados);
+}
+
+function renderMovies(movies) {
+    let htmlTemplate = "";
+
+    movies.forEach((peli) => {
+        // Extract filename from database path and construct local path
+        const nombreArchivo = peli.photo_url ? peli.photo_url.split('/').pop() : "";
+        const rutaImagenLocal = `MoviesImagenes/${nombreArchivo}`;
+
+        const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+        const isFav = favorites.some(f => f.title === peli.title);
+        const favIcon = isFav ? 'favorite' : 'favorite_border';
+        const favClass = isFav ? 'text-red-500 fill-current' : 'text-slate-400';
+
+        htmlTemplate += `
+            <div class="movie-card">
+                <div class="poster-image" style="background-image: url('${rutaImagenLocal}')"></div>
+
+                <div class="movie-popover">
+                    <div class="popover-thumb" style="background-image: url('${rutaImagenLocal}')"></div>
+                    <div class="popover-content">
+                        <div class="movie-title-row">
+                            <h3 class="movie-title">${peli.title}</h3>
+                            <button class="fav-btn ${favClass}" data-title="${peli.title}">
+                                <span class="material-symbols-outlined">${favIcon}</span>
+                            </button>
+                        </div>
+                        <div class="meta-row">
+                            <span>${peli.release_year}</span>
+                            <span class="rating-badge">HD</span>
+                            <span>${peli.duration_min} min</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+    });
+
+    $contenedor.innerHTML = htmlTemplate || '<p class="text-center w-full py-10 opacity-50">No matching movies found.</p>';
+
+    // Re-initialize favorite buttons for the newly rendered elements
+    // We can rely on the event delegation in 'DOMContentLoaded', but if we wanted to
+    // explicitly re-bind anything, we would do it here. 
+    // Since we use delegation (document.addEventListener('click', ... .fav-btn)), we are safe.
+}
+
+// --- EVENT LISTENERS ---
+
+// Search Input Listener
+if ($searchInput) {
+    $searchInput.addEventListener("input", () => {
+        applyFiltersAndRender();
+    });
 }
 
 // Brand Filter Listeners
@@ -231,6 +330,8 @@ if (homeLink) {
                 c.classList.remove('border-primary');
                 c.querySelector('span').classList.remove('text-primary');
             });
+            // Clear search as well when resetting home
+            if ($searchInput) $searchInput.value = "";
             LoadMovies();
         }
     });

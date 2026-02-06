@@ -177,89 +177,144 @@ document.addEventListener('DOMContentLoaded', () => {
             return currentSort === 'newest' ? yearB - yearA : yearA - yearB;
         });
 
-        renderMovies(filtered);
-    };
+const API =
+    "https://silver-chainsaw-7v4q6wwrw77vh4x7-3000.app.github.dev/api/movies";
+const $contenedor = document.querySelector(".movies-grid");
+const $searchInputHelper = document.querySelector(".search-input"); // Header search
+const $pageSearchInput = document.querySelector(".all-movies-search-input"); // Page specific search
 
-    // --- Rendering Logic ---
-    const renderMovies = (movies) => {
-        if (!$contenedor) return;
+// Global state
+let allMoviesData = [];
 
+// --- FUNCIÓN PRINCIPAL DE CARGA ---
+// --- FUNCIÓN PRINCIPAL DE CARGA ---
+async function LoadMovies(genreId = null) {
+    if (!$contenedor) return;
+
+    try {
+        const fetchUrl = genreId ? `${API}/${genreId}` : API;
+        const response = await fetch(fetchUrl);
+        if (!response.ok) throw new Error("Error en la respuesta de la API");
+
+        const data = await response.json();
+        allMoviesData = data.movies;
+
+        // Apply filters and render initially
+        applyFiltersAndRender();
+
+    } catch (error) {
+        console.error("Error al cargar:", error);
+        $contenedor.innerHTML = `<p class="error">Error al cargar la base de datos.</p>`;
+    }
+}
+
+// --- DROPDOWN FILTER LOGIC ---
+document.addEventListener('DOMContentLoaded', () => {
+    const dropdownItems = document.querySelectorAll('.dropdown-item');
+    const filterBtnText = document.querySelector('#filterBtn'); // To update text if needed
+
+    dropdownItems.forEach(item => {
+        item.addEventListener('click', (e) => {
+            const genreId = e.target.dataset.genreId;
+            // Optional: Update button text to reflect selection
+            // if (filterBtnText) filterBtnText.childNodes[2].textContent = e.target.textContent.trim();
+
+            LoadMovies(genreId);
+        });
+    });
+});
+
+// --- FILTER & RENDER LOGIC ---
+function applyFiltersAndRender() {
+    if (!$contenedor) return;
+
+    // Get search term from either input (prioritizing non-empty one or specialized one)
+    // Actually, usually we might want them synchronized or just check both.
+    const term1 = $searchInputHelper ? $searchInputHelper.value.toLowerCase().trim() : "";
+    const term2 = $pageSearchInput ? $pageSearchInput.value.toLowerCase().trim() : "";
+    // If user types in one, we use that. If both have values, logic depends on design.
+    // Let's assume logical OR or just look for the active one.
+    // Simpler approach: match both content-wise if they exist.
+    const searchTerm = term1 || term2;
+
+    // Sync values visually if you want, but for now just use the value.
+
+    const path = window.location.pathname;
+    const esHome = path.endsWith("index.html") || path === "/" || path === "" || path.includes("index");
+    const esPaginaSeries = path.includes("series.html");
+    const esPaginaPeliculas = path.includes("allMovies");
+
+    const filtrados = allMoviesData.filter((item) => {
+        // 1. Page Type Logic
+        let pageMatch = true;
+        if (esHome) pageMatch = true;
+        else if (esPaginaSeries) pageMatch = item.is_series === 1;
+        else if (esPaginaPeliculas) pageMatch = true;
+
+        // 2. Search Logic
+        const searchMatch = item.title.toLowerCase().includes(searchTerm);
+
+        return pageMatch && searchMatch;
+    });
+
+    renderMovies(filtrados);
+}
+
+function renderMovies(movies) {
+    let htmlTemplate = "";
+
+    movies.forEach((peli) => {
+        // Extract filename from database path and construct local path
+        const nombreArchivo = peli.photo_url ? peli.photo_url.split('/').pop() : "";
+        const rutaImagenLocal = `../MoviesImagenes/${nombreArchivo}`;
+
+        // 2. Lógica de favoritos
         const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
-        let htmlTemplate = "";
+        const isFav = favorites.some(f => f.title === peli.title);
+        const favIcon = isFav ? 'favorite' : 'favorite_border';
+        const favClass = isFav ? 'text-red-500 fill-current' : 'text-slate-400';
 
-        movies.forEach((peli) => {
-            const nombreArchivo = peli.photo_url ? peli.photo_url.split('/').pop() : "";
-            const rutaImagenLocal = `../MoviesImagenes/${nombreArchivo}`;
-            const isFav = favorites.some(f => f.title === peli.title);
-            const favIcon = isFav ? 'favorite' : 'favorite_border';
-            const favClass = isFav ? 'text-red-500 fill-current' : 'text-slate-400';
+        htmlTemplate += `
+            <div class="movie-card">
+                <div class="poster-image" style="background-image: url('${rutaImagenLocal}')"></div>
 
-            htmlTemplate += `
-                <div class="movie-card">
-                    <div class="poster-image" style="background-image: url('${rutaImagenLocal}')"></div>
-                    <div class="movie-popover">
-                        <div class="popover-thumb" style="background-image: url('${rutaImagenLocal}')"></div>
-                        <div class="popover-content">
-                            <div class="movie-title-row">
-                                <h3 class="movie-title">${peli.title}</h3>
-                                <button class="fav-btn ${favClass}" data-title="${peli.title}">
-                                    <span class="material-symbols-outlined">${favIcon}</span>
-                                </button>
-                            </div>
-                            <div class="meta-row">
-                                <span>${peli.release_year}</span>
-                                <span class="rating-badge">HD</span>
-                                <span>${peli.duration_min} min</span>
-                            </div>
+                <div class="movie-popover">
+                    <div class="popover-thumb" style="background-image: url('${rutaImagenLocal}')"></div>
+                    <div class="popover-content">
+                        <div class="movie-title-row">
+                            <h3 class="movie-title">${peli.title}</h3>
+                            <button class="fav-btn ${favClass}" data-title="${peli.title}">
+                                <span class="material-symbols-outlined">${favIcon}</span>
+                            </button>
+                        </div>
+                        <div class="meta-row">
+                            <span>${peli.release_year}</span>
+                            <span class="rating-badge">HD</span>
+                            <span>${peli.duration_min} min</span>
                         </div>
                     </div>
                 </div>
-            `;
-        });
-
-        $contenedor.innerHTML = htmlTemplate || '<p class="no-results">No movies found matching your criteria.</p>';
-        initButtons(); // Sync favorite buttons after render
-    };
-
-    // --- Event Listeners for Filters/Sort ---
-    document.querySelectorAll('#filterDropdown .dropdown-item').forEach(item => {
-        item.addEventListener('click', () => {
-            currentCategory = item.dataset.category;
-            filterAndRenderMovies();
-            document.getElementById('filterDropdown').classList.remove('active');
-        });
+            </div>
+        `;
     });
 
-    document.querySelectorAll('#sortDropdown .dropdown-item').forEach(item => {
-        item.addEventListener('click', () => {
-            currentSort = item.dataset.sort;
-            filterAndRenderMovies();
-            document.getElementById('sortDropdown').classList.remove('active');
-        });
+    $contenedor.innerHTML = htmlTemplate || '<p class="text-center w-full py-10 opacity-50">No movies found.</p>';
+}
+
+// --- EVENT LISTENERS ---
+if ($searchInputHelper) {
+    $searchInputHelper.addEventListener("input", () => {
+        // Sync other input if needed, or just re-render
+        applyFiltersAndRender();
     });
+}
+if ($pageSearchInput) {
+    $pageSearchInput.addEventListener("input", () => {
+        applyFiltersAndRender();
+    });
+}
 
-    // --- Initial Load ---
-    async function LoadMovies() {
-        if (!$contenedor) return;
 
-        try {
-            const response = await fetch(API);
-            if (!response.ok) throw new Error("Error en la respuesta de la API");
-
-            const data = await response.json();
-            allMoviesData = data.movies;
-            filterAndRenderMovies();
-
-        } catch (error) {
-            console.error("Error al cargar:", error);
-            $contenedor.innerHTML = `<p class="error">Error al cargar la base de datos.</p>`;
-        }
-    }
-
-    LoadMovies();
-});
-
-const API = "https://silver-chainsaw-7v4q6wwrw77vh4x7-3000.app.github.dev/api/movies";
-const $contenedor = document.querySelector(".movies-grid");
-
+// Ejecutar la carga
+LoadMovies();
 

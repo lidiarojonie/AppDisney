@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html class="dark" lang="es">
 
 <head>
     <meta charset="UTF-8">
@@ -15,69 +15,210 @@
 
 <body>
 
-    <!-- Optional Logo -->
-    <div class="logo-container">
-        <!-- Using the same logo as main page -->
-        <img src="Imagenes/logo.png" alt="Disney+" style="width: 100%; filter: brightness(2);">
-    </div>
+    <!-- VIEW 1: PROFILE SELECTION -->
+    <div id="profile-view">
+        <!-- Optional Logo -->
+        <div class="logo-container">
+            <!-- Using the same logo as main page -->
+            <img src="Imagenes/logo.png" alt="Disney+" style="width: 100%; filter: brightness(2);">
+        </div>
 
-    <h1>Editar perfiles</h1>
-    <p class="subtitle">Selecciona un perfil para editar.</p>
+        <h1>Editar perfiles</h1>
+        <p class="subtitle">Selecciona un perfil para editar.</p>
 
-    <div class="profiles-container animate-fade-in">
-        <!-- Juan -->
-        <a href="home.html" class="profile-card animate-pop-in delay-100">
-            <div class="avatar-wrapper">
-                <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuBcHDc-ey8kjvRGkxEDP3YvCJF539f_5sbUYgDYZsCjD-jaVeC37DBP3LjjfMBqzyzcVUltjOb1TSiCUvKrAg96V1_E4ETp3kqnTXgGmEnl2Pdh22QEqTWMom6vu6p686Z7OwlhynDD2oj5TIRpY84Xwe7zzQ9uQA-WSeQT3Gzp6dwjCbDuG9miTrh4zXWHMWsovQY8oFKDRVSU0RHbkiH23DtZM8eTLhMKyAMumQ5b84RvaPz_F6-tBVojX-P6lSaZC7r-m8wlMO54"
-                    alt="Juan" style="filter: hue-rotate(180deg);">
-                <div class="edit-icon"><span class="material-symbols-outlined"
-                        style="font-size: 18px; font-weight: bold;">edit</span></div>
+        <div class="profiles-container animate-fade-in">
+            <!-- Juan -->
+            <a href="#" onclick="enterApp()" class="profile-card animate-pop-in delay-100">
+                <div class="avatar-wrapper">
+                    <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuBcHDc-ey8kjvRGkxEDP3YvCJF539f_5sbUYgDYZsCjD-jaVeC37DBP3LjjfMBqzyzcVUltjOb1TSiCUvKrAg96V1_E4ETp3kqnTXgGmEnl2Pdh22QEqTWMom6vu6p686Z7OwlhynDD2oj5TIRpY84Xwe7zzQ9uQA-WSeQT3Gzp6dwjCbDuG9miTrh4zXWHMWsovQY8oFKDRVSU0RHbkiH23DtZM8eTLhMKyAMumQ5b84RvaPz_F6-tBVojX-P6lSaZC7r-m8wlMO54"
+                        alt="Juan" style="filter: hue-rotate(180deg);">
+                    <div class="edit-icon"><span class="material-symbols-outlined"
+                            style="font-size: 18px; font-weight: bold;">edit</span></div>
+                </div>
+                <span class="profile-name">Juan</span>
+            </a>
+
+            <!-- Camila -->
+            <a href="#" onclick="enterApp()" class="profile-card animate-pop-in delay-200">
+                <div class="avatar-wrapper">
+                    <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuBcHDc-ey8kjvRGkxEDP3YvCJF539f_5sbUYgDYZsCjD-jaVeC37DBP3LjjfMBqzyzcVUltjOb1TSiCUvKrAg96V1_E4ETp3kqnTXgGmEnl2Pdh22QEqTWMom6vu6p686Z7OwlhynDD2oj5TIRpY84Xwe7zzQ9uQA-WSeQT3Gzp6dwjCbDuG9miTrh4zXWHMWsovQY8oFKDRVSU0RHbkiH23DtZM8eTLhMKyAMumQ5b84RvaPz_F6-tBVojX-P6lSaZC7r-m8wlMO54"
+                        alt="Camila" style="filter: hue-rotate(90deg);">
+                    <div class="edit-icon"><span class="material-symbols-outlined"
+                            style="font-size: 18px; font-weight: bold;">edit</span></div>
+                </div>
+                <span class="profile-name">Camila</span>
+            </a>
+
+            <!-- Miguel (Active) -->
+            <a href="#" onclick="enterApp()" class="profile-card active animate-pop-in delay-300">
+                <div class="avatar-wrapper">
+                    <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuBcHDc-ey8kjvRGkxEDP3YvCJF539f_5sbUYgDYZsCjD-jaVeC37DBP3LjjfMBqzyzcVUltjOb1TSiCUvKrAg96V1_E4ETp3kqnTXgGmEnl2Pdh22QEqTWMom6vu6p686Z7OwlhynDD2oj5TIRpY84Xwe7zzQ9uQA-WSeQT3Gzp6dwjCbDuG9miTrh4zXWHMWsovQY8oFKDRVSU0RHbkiH23DtZM8eTLhMKyAMumQ5b84RvaPz_F6-tBVojX-P6lSaZC7r-m8wlMO54"
+                        alt="Miguel">
+                    <div class="edit-icon"><span class="material-symbols-outlined"
+                            style="font-size: 18px; font-weight: bold;">edit</span></div>
+                </div>
+                <span class="profile-name">Miguel</span>
+            </a>
+
+            <!-- Julia -->
+            <a href="#" onclick="enterApp()" class="profile-card animate-pop-in delay-400">
+                <div class="avatar-wrapper">
+                    <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuBcHDc-ey8kjvRGkxEDP3YvCJF539f_5sbUYgDYZsCjD-jaVeC37DBP3LjjfMBqzyzcVUltjOb1TSiCUvKrAg96V1_E4ETp3kqnTXgGmEnl2Pdh22QEqTWMom6vu6p686Z7OwlhynDD2oj5TIRpY84Xwe7zzQ9uQA-WSeQT3Gzp6dwjCbDuG9miTrh4zXWHMWsovQY8oFKDRVSU0RHbkiH23DtZM8eTLhMKyAMumQ5b84RvaPz_F6-tBVojX-P6lSaZC7r-m8wlMO54"
+                        alt="Julia" style="filter: hue-rotate(270deg);">
+                    <div class="edit-icon"><span class="material-symbols-outlined"
+                            style="font-size: 18px; font-weight: bold;">edit</span></div>
+                </div>
+                <span class="profile-name">Julia</span>
+            </a>
+
+            <!-- Add Profile -->
+            <div class="profile-card animate-pop-in delay-500">
+                <div class="add-profile-btn">
+                    <span class="material-symbols-outlined">add</span>
+                </div>
+                <span class="profile-name">Crear perfil</span>
             </div>
-            <span class="profile-name">Juan</span>
-        </a>
-
-        <!-- Camila -->
-        <a href="home.html" class="profile-card animate-pop-in delay-200">
-            <div class="avatar-wrapper">
-                <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuBcHDc-ey8kjvRGkxEDP3YvCJF539f_5sbUYgDYZsCjD-jaVeC37DBP3LjjfMBqzyzcVUltjOb1TSiCUvKrAg96V1_E4ETp3kqnTXgGmEnl2Pdh22QEqTWMom6vu6p686Z7OwlhynDD2oj5TIRpY84Xwe7zzQ9uQA-WSeQT3Gzp6dwjCbDuG9miTrh4zXWHMWsovQY8oFKDRVSU0RHbkiH23DtZM8eTLhMKyAMumQ5b84RvaPz_F6-tBVojX-P6lSaZC7r-m8wlMO54"
-                    alt="Camila" style="filter: hue-rotate(90deg);">
-                <div class="edit-icon"><span class="material-symbols-outlined"
-                        style="font-size: 18px; font-weight: bold;">edit</span></div>
-            </div>
-            <span class="profile-name">Camila</span>
-        </a>
-
-        <!-- Miguel (Active) -->
-        <a href="home.html" class="profile-card active animate-pop-in delay-300">
-            <div class="avatar-wrapper">
-                <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuBcHDc-ey8kjvRGkxEDP3YvCJF539f_5sbUYgDYZsCjD-jaVeC37DBP3LjjfMBqzyzcVUltjOb1TSiCUvKrAg96V1_E4ETp3kqnTXgGmEnl2Pdh22QEqTWMom6vu6p686Z7OwlhynDD2oj5TIRpY84Xwe7zzQ9uQA-WSeQT3Gzp6dwjCbDuG9miTrh4zXWHMWsovQY8oFKDRVSU0RHbkiH23DtZM8eTLhMKyAMumQ5b84RvaPz_F6-tBVojX-P6lSaZC7r-m8wlMO54"
-                    alt="Miguel">
-                <div class="edit-icon"><span class="material-symbols-outlined"
-                        style="font-size: 18px; font-weight: bold;">edit</span></div>
-            </div>
-            <span class="profile-name">Miguel</span>
-        </a>
-
-        <!-- Julia -->
-        <a href="home.html" class="profile-card animate-pop-in delay-400">
-            <div class="avatar-wrapper">
-                <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuBcHDc-ey8kjvRGkxEDP3YvCJF539f_5sbUYgDYZsCjD-jaVeC37DBP3LjjfMBqzyzcVUltjOb1TSiCUvKrAg96V1_E4ETp3kqnTXgGmEnl2Pdh22QEqTWMom6vu6p686Z7OwlhynDD2oj5TIRpY84Xwe7zzQ9uQA-WSeQT3Gzp6dwjCbDuG9miTrh4zXWHMWsovQY8oFKDRVSU0RHbkiH23DtZM8eTLhMKyAMumQ5b84RvaPz_F6-tBVojX-P6lSaZC7r-m8wlMO54"
-                    alt="Julia" style="filter: hue-rotate(270deg);">
-                <div class="edit-icon"><span class="material-symbols-outlined"
-                        style="font-size: 18px; font-weight: bold;">edit</span></div>
-            </div>
-            <span class="profile-name">Julia</span>
-        </a>
-
-        <!-- Add Profile -->
-        <div class="profile-card animate-pop-in delay-500">
-            <div class="add-profile-btn">
-                <span class="material-symbols-outlined">add</span>
-            </div>
-            <span class="profile-name">Crear perfil</span>
         </div>
     </div>
 
+    <!-- VIEW 2: HOME APP (Hidden by default) -->
+    <div id="home-view" class="hidden relative flex flex-col w-full">
+        <header class="site-header">
+            <div class="header-left">
+                <a href="#" onclick="return false;" class="logo-link">
+                    <div class="logo-icon">
+                        <img src="Imagenes/logo.png" alt="Logo" class="w-full h-full object-contain">
+                    </div>
+                    <h2 class="logo-text">STREAM</h2>
+                </a>
+                <nav class="main-nav">
+                    <a class="nav-link active" href="#" onclick="return false;">Home</a>
+                    <a class="nav-link" href="allMovies/allMovies.html">Movies</a>
+                    <a class="nav-link" href="favorites/favorites.html">MyFavorites</a>
+                </nav>
+            </div>
+            <div class="header-right">
+                <div class="search-container">
+                    <span class="material-symbols-outlined search-icon">search</span>
+                    <input class="search-input" placeholder="Search..." type="text" />
+                </div>
+                <div class="notification-icon">
+                    <span class="material-symbols-outlined">notifications</span>
+                    <div class="notification-dot"></div>
+                </div>
+                <div class="user-dropdown-container">
+                    <div class="user-avatar"
+                        style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBcHDc-ey8kjvRGkxEDP3YvCJF539f_5sbUYgDYZsCjD-jaVeC37DBP3LjjfMBqzyzcVUltjOb1TSiCUvKrAg96V1_E4ETp3kqnTXgGmEnl2Pdh22QEqTWMom6vu6p686Z7OwlhynDD2oj5TIRpY84Xwe7zzQ9uQA-WSeQT3Gzp6dwjCbDuG9miTrh4zXWHMWsovQY8oFKDRVSU0RHbkiH23DtZM8eTLhMKyAMumQ5b84RvaPz_F6-tBVojX-P6lSaZC7r-m8wlMO54");'>
+                    </div>
+                    <div class="user-dropdown">
+                        <a href="profile/profile.html" class="dropdown-item">
+                            <span class="material-symbols-outlined">person</span>
+                            <span>Profile</span>
+                        </a>
+                        <a href="plans/plans.html" class="dropdown-item">
+                            <span class="material-symbols-outlined">subscriptions</span>
+                            <span>Subscription</span>
+                        </a>
+                        <a href="#" class="dropdown-item">
+                            <span class="material-symbols-outlined">settings</span>
+                            <span>Settings</span>
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a href="#" id="logout-btn" class="dropdown-item logout">
+                            <span class="material-symbols-outlined">logout</span>
+                            <span>Log Out</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <main class="main-content">
+            <section class="mb-10">
+                <div class="hero-card group">
+                    <div class="hero-bg"
+                        style='background-image: linear-gradient(to top, rgba(11, 13, 16, 0.95) 0%, rgba(11, 13, 16, 0.4) 40%, rgba(11, 13, 16, 0) 100%), url("https://lh3.googleusercontent.com/aida-public/AB6AXuCdrZamZ2-Tzj1lwrbkZwTvT4Xr4ZP394cEsBBelKnB5ktqdNmPXqiS5xeSi91O38x4VhTTLtc1KvOvfr_wCqolmRmBHSqC91_gv7XffK4iai2NQyPGkkkdpR98xfHiOLOKr9UEWUi0f6ilY5fzNAN_zTdzygEeLa5lPitn2IFhfPs8dCenr_1p0jQit2HhBrIq60EhMl5EZVp92xtoDURwSa2ff_DvM9CFbKeB7n-FSROrbLgqo8vd7WkXqzbGGpwLPQ5S8pMXNGKI");'>
+                        <div class="hero-content">
+                            <span class="badge-featured animate-slide-up delay-100">Featured</span>
+                            <h1 class="hero-title animate-slide-up delay-200">The Mandalorian</h1>
+                            <p class="hero-desc animate-slide-up delay-300">The travels of a lone bounty hunter in the
+                                outer reaches of the galaxy,
+                                far from the authority of the New Republic.</p>
+                            <div class="hero-actions animate-slide-up delay-400">
+                                <button class="btn btn-primary">
+                                    <span class="material-symbols-outlined">play_arrow</span><span>Play Now</span>
+                                </button>
+                                <a href="movies/mandalorian.html" class="btn btn-glass" style="text-decoration: none;">
+                                    <span class="material-symbols-outlined">info</span><span>More Info</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="brands-section">
+                <div class="brands-scroll">
+                    <div class="brand-card group" data-genre-id="1">
+                        <span class="font-bold group-hover:text-primary">DISNEY</span>
+                    </div>
+                    <div class="brand-card group" data-genre-id="2">
+                        <span class="font-bold group-hover:text-primary">PIXAR</span>
+                    </div>
+                    <div class="brand-card group" data-genre-id="3">
+                        <span class="font-bold group-hover:text-primary">MARVEL</span>
+                    </div>
+                    <div class="brand-card group" data-genre-id="4">
+                        <span class="font-bold group-hover:text-primary">STAR WARS</span>
+                    </div>
+                    <div class="brand-card group" data-genre-id="5">
+                        <span class="font-bold group-hover:text-primary">STREAM+</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Continue Watching Section -->
+            <div class="section-header">
+                <h2 class="section-title">Continue Watching</h2>
+            </div>
+            <div class="carousel-container" id="continue-watching-container">
+                <!-- Javascript will populate this -->
+            </div>
+
+            <!-- New Releases Section -->
+            <div class="section-header">
+                <h2 class="section-title">New Releases</h2>
+            </div>
+            <div class="carousel-container" id="new-releases-container">
+                <!-- Javascript will populate this -->
+            </div>
+
+            <div class="section-header">
+                <h2 class="section-title">Catalogue</h2>
+            </div>
+
+            <div class="movies-grid">
+                <!-- Movies from database will be rendered here -->
+            </div>
+        </main>
+
+        <footer class="site-footer">
+            <div class="footer-content">
+                <div class="logo-icon text-slate-400">
+                    <img src="Imagenes/logo.png" alt="Logo" class="w-full h-full object-contain grayscale opacity-50">
+                </div>
+                <div class="footer-links">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Help</a>
+                    <a href="#">About Us</a>
+                </div>
+                <p class="copyright">© 2026 Streaming Service. All rights reserved.</p>
+            </div>
+        </footer>
+    </div>
+
+    <!-- MAIN APP SCRIPT -->
+    <script src="app.js"></script>
 </body>
 
 </html>
